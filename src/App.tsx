@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+import { Props, State, Event } from "./types";
 
-function App() {
-  const [state, setState] = useState(getSavedState() ?? getDefaultState());
+function App({ stateProvider }: Props) {
+  const [state, setState] = useState(
+    stateProvider.getSavedState() ?? getDefaultState()
+  );
+
+  useEffect(() => {
+    stateProvider.saveState(state);
+  });
+
   const sortedEvents = state.events.slice().sort((a, b) => a.time - b.time);
 
   function logEvent(eventName: string) {
@@ -45,30 +53,6 @@ function App() {
 }
 
 export default App;
-
-export interface State {
-  readonly loggableEventNames: readonly string[];
-  readonly events: readonly Event[];
-}
-
-export interface Event {
-  readonly name: string;
-  /** Number of milliseconds since the JS Date epoch. */
-  readonly time: number;
-  readonly deleted: boolean;
-}
-
-const LocalStorageKeys = {
-  State: "tihu_state",
-} as const;
-
-function getSavedState(): null | State {
-  const savedState = localStorage.getItem(LocalStorageKeys.State);
-  if (savedState === null) {
-    return null;
-  }
-  return JSON.parse(savedState);
-}
 
 function getDefaultState(): State {
   return {
