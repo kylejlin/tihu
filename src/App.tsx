@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Props, State, Event } from "./types";
+import { Props, State, Event, StateHookProps } from "./types";
 
 function App({ stateProvider }: Props) {
-  const [state, setState] = useState(
+  const stateHook = useState(
     stateProvider.getSavedState() ?? getDefaultState()
   );
+  const [state, setState] = stateHook;
 
   useEffect(() => {
     stateProvider.saveState(state);
@@ -17,18 +18,6 @@ function App({ stateProvider }: Props) {
   const sortedEventsRecentFirst = state.events
     .filter(eventFilter)
     .sort((a, b) => b.time - a.time);
-
-  function logEvent(eventName: string) {
-    const newEvent: Event = {
-      name: eventName,
-      time: Date.now(),
-      redacted: false,
-    };
-    setState((state) => ({
-      ...state,
-      events: [...state.events, newEvent],
-    }));
-  }
 
   function redactEvent(eventTime: number) {
     setState((state) => ({
@@ -48,42 +37,6 @@ function App({ stateProvider }: Props) {
     }));
   }
 
-  function startEditingLoggables() {
-    setState((state) => ({
-      ...state,
-      isEditingLoggableEventNames: true,
-    }));
-  }
-
-  function stopEditingLoggables() {
-    setState((state) => ({
-      ...state,
-      isEditingLoggableEventNames: false,
-    }));
-  }
-
-  function setTentativeNewLoggableName(
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
-    setState((state) => ({
-      ...state,
-      tentativeNewLoggableEventName: event.target.value,
-    }));
-  }
-
-  function addTentativeNewLoggable() {
-    setState((state) => ({
-      ...state,
-      loggableEventNames: state.loggableEventNames.some(
-        (eventName) => eventName === state.tentativeNewLoggableEventName
-      )
-        ? state.loggableEventNames
-        : state.loggableEventNames.concat([
-            state.tentativeNewLoggableEventName,
-          ]),
-    }));
-  }
-
   function hideRedactedEvents() {
     setState((state) => ({
       ...state,
@@ -98,12 +51,6 @@ function App({ stateProvider }: Props) {
     }));
   }
 
-  const toggleIsEditingLoggablesButton = state.isEditingLoggableEventNames ? (
-    <button onClick={stopEditingLoggables}>Stop editing</button>
-  ) : (
-    <button onClick={startEditingLoggables}>Edit loggables</button>
-  );
-
   const toggleShowRedactedEventsButton = state.showRedactedEvents ? (
     <button onClick={hideRedactedEvents}>Hide redacted</button>
   ) : (
@@ -114,25 +61,7 @@ function App({ stateProvider }: Props) {
     <div className="App">
       <h1>Tihu</h1>
 
-      <h2>Log {toggleIsEditingLoggablesButton}</h2>
-      <ul>
-        {state.loggableEventNames.map((loggableName) => (
-          <li key={loggableName}>
-            {loggableName}{" "}
-            <button onClick={() => logEvent(loggableName)}>Log</button>
-          </li>
-        ))}
-        {state.isEditingLoggableEventNames && (
-          <li>
-            New:{" "}
-            <input
-              value={state.tentativeNewLoggableEventName}
-              onChange={setTentativeNewLoggableName}
-            />{" "}
-            <button onClick={addTentativeNewLoggable}>Add</button>
-          </li>
-        )}
-      </ul>
+      <LoggableMenu stateHook={stateHook} />
 
       <h2>
         Events ({sortedEventsRecentFirst.length}){" "}
@@ -185,5 +114,87 @@ function EventTime({ time }: { time: number }) {
     <span className="EventTime">
       {date.toLocaleDateString()} {date.toLocaleTimeString()}
     </span>
+  );
+}
+
+function LoggableMenu({ stateHook }: StateHookProps) {
+  const [state, setState] = stateHook;
+
+  function startEditingLoggables() {
+    setState((state) => ({
+      ...state,
+      isEditingLoggableEventNames: true,
+    }));
+  }
+
+  function stopEditingLoggables() {
+    setState((state) => ({
+      ...state,
+      isEditingLoggableEventNames: false,
+    }));
+  }
+
+  function setTentativeNewLoggableName(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    setState((state) => ({
+      ...state,
+      tentativeNewLoggableEventName: event.target.value,
+    }));
+  }
+
+  function addTentativeNewLoggable() {
+    setState((state) => ({
+      ...state,
+      loggableEventNames: state.loggableEventNames.some(
+        (eventName) => eventName === state.tentativeNewLoggableEventName
+      )
+        ? state.loggableEventNames
+        : state.loggableEventNames.concat([
+            state.tentativeNewLoggableEventName,
+          ]),
+    }));
+  }
+
+  function logEvent(eventName: string) {
+    const newEvent: Event = {
+      name: eventName,
+      time: Date.now(),
+      redacted: false,
+    };
+    setState((state) => ({
+      ...state,
+      events: [...state.events, newEvent],
+    }));
+  }
+
+  const toggleIsEditingLoggablesButton = state.isEditingLoggableEventNames ? (
+    <button onClick={stopEditingLoggables}>Stop editing</button>
+  ) : (
+    <button onClick={startEditingLoggables}>Edit loggables</button>
+  );
+
+  return (
+    <>
+      <h2>Log {toggleIsEditingLoggablesButton}</h2>
+      <ul>
+        {state.loggableEventNames.map((loggableName) => (
+          <li key={loggableName}>
+            {loggableName}{" "}
+            <button onClick={() => logEvent(loggableName)}>Log</button>
+          </li>
+        ))}
+        {state.isEditingLoggableEventNames && (
+          <li>
+            New:{" "}
+            <input
+              value={state.tentativeNewLoggableEventName}
+              onChange={setTentativeNewLoggableName}
+            />{" "}
+            <button onClick={addTentativeNewLoggable}>Add</button>
+          </li>
+        )}
+      </ul>
+    </>
   );
 }

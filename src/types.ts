@@ -1,3 +1,5 @@
+import type * as React from "react";
+
 export interface Props {
   readonly stateProvider: StateProvider;
 }
@@ -14,6 +16,15 @@ export interface State {
 
   readonly events: readonly Event[];
   readonly showRedactedEvents: boolean;
+}
+
+export type StateHook = readonly [
+  State,
+  React.Dispatch<React.SetStateAction<State>>
+];
+
+export interface StateHookProps {
+  readonly stateHook: StateHook;
 }
 
 export interface Event {
