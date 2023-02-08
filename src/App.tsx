@@ -66,7 +66,7 @@ function App({ stateProvider }: Props) {
           <li key={event.time}>
             {event.name}{" "}
             {event.deleted ? (
-              <button onClick={() => deleteEvent(event.time)}>Restore</button>
+              <button onClick={() => restoreEvent(event.time)}>Restore</button>
             ) : (
               <button onClick={() => deleteEvent(event.time)}>Delete</button>
             )}
