@@ -25,6 +25,24 @@ function App({ stateProvider }: Props) {
     }));
   }
 
+  function deleteEvent(eventTime: number) {
+    setState((state) => ({
+      ...state,
+      events: state.events.map((event) =>
+        event.time === eventTime ? { ...event, deleted: true } : event
+      ),
+    }));
+  }
+
+  function restoreEvent(eventTime: number) {
+    setState((state) => ({
+      ...state,
+      events: state.events.map((event) =>
+        event.time === eventTime ? { ...event, deleted: false } : event
+      ),
+    }));
+  }
+
   return (
     <div className="App">
       <h1>Tihu</h1>
@@ -45,7 +63,14 @@ function App({ stateProvider }: Props) {
       <h2>Events ({sortedEvents.length})</h2>
       <ul>
         {sortedEvents.map((event) => (
-          <li key={event.time}>{event.name}</li>
+          <li key={event.time}>
+            {event.name}{" "}
+            {event.deleted ? (
+              <button onClick={() => deleteEvent(event.time)}>Restore</button>
+            ) : (
+              <button onClick={() => deleteEvent(event.time)}>Delete</button>
+            )}
+          </li>
         ))}
       </ul>
     </div>
