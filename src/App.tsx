@@ -11,7 +11,9 @@ function App({ stateProvider }: Props) {
     stateProvider.saveState(state);
   });
 
-  const sortedEvents = state.events.slice().sort((a, b) => a.time - b.time);
+  const sortedEventsRecentFirst = state.events
+    .slice()
+    .sort((a, b) => b.time - a.time);
 
   function logEvent(eventName: string) {
     const newEvent: Event = {
@@ -60,11 +62,11 @@ function App({ stateProvider }: Props) {
         </li>
       </ul>
 
-      <h2>Events ({sortedEvents.length})</h2>
+      <h2>Events ({sortedEventsRecentFirst.length})</h2>
       <ul>
-        {sortedEvents.map((event) => (
+        {sortedEventsRecentFirst.map((event) => (
           <li key={event.time}>
-            {event.name}{" "}
+            {event.name} {<EventTime time={event.time} />}{" "}
             {event.deleted ? (
               <button onClick={() => restoreEvent(event.time)}>Restore</button>
             ) : (
@@ -93,4 +95,13 @@ function getDefaultState(): State {
     ],
     events: [],
   };
+}
+
+function EventTime({ time }: { time: number }) {
+  const date = new Date(time);
+  return (
+    <span className="EventTime">
+      {date.toLocaleDateString()} {date.toLocaleTimeString()}
+    </span>
+  );
 }
