@@ -48,6 +48,42 @@ function App({ stateProvider }: Props) {
     }));
   }
 
+  function startEditingLoggables() {
+    setState((state) => ({
+      ...state,
+      isEditingLoggableEventNames: true,
+    }));
+  }
+
+  function stopEditingLoggables() {
+    setState((state) => ({
+      ...state,
+      isEditingLoggableEventNames: false,
+    }));
+  }
+
+  function setTentativeNewLoggableName(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    setState((state) => ({
+      ...state,
+      tentativeNewLoggableEventName: event.target.value,
+    }));
+  }
+
+  function addTentativeNewLoggable() {
+    setState((state) => ({
+      ...state,
+      loggableEventNames: state.loggableEventNames.some(
+        (eventName) => eventName === state.tentativeNewLoggableEventName
+      )
+        ? state.loggableEventNames
+        : state.loggableEventNames.concat([
+            state.tentativeNewLoggableEventName,
+          ]),
+    }));
+  }
+
   function hideRedactedEvents() {
     setState((state) => ({
       ...state,
@@ -62,6 +98,12 @@ function App({ stateProvider }: Props) {
     }));
   }
 
+  const toggleIsEditingLoggablesButton = state.isEditingLoggableEventNames ? (
+    <button onClick={stopEditingLoggables}>Stop editing</button>
+  ) : (
+    <button onClick={startEditingLoggables}>Edit loggables</button>
+  );
+
   const toggleShowRedactedEventsButton = state.showRedactedEvents ? (
     <button onClick={hideRedactedEvents}>Hide redacted</button>
   ) : (
@@ -72,7 +114,7 @@ function App({ stateProvider }: Props) {
     <div className="App">
       <h1>Tihu</h1>
 
-      <h2>Log</h2>
+      <h2>Log {toggleIsEditingLoggablesButton}</h2>
       <ul>
         {state.loggableEventNames.map((loggableName) => (
           <li key={loggableName}>
@@ -80,9 +122,16 @@ function App({ stateProvider }: Props) {
             <button onClick={() => logEvent(loggableName)}>Log</button>
           </li>
         ))}
-        <li>
-          New: <input value="todo" readOnly />
-        </li>
+        {state.isEditingLoggableEventNames && (
+          <li>
+            New:{" "}
+            <input
+              value={state.tentativeNewLoggableEventName}
+              onChange={setTentativeNewLoggableName}
+            />{" "}
+            <button onClick={addTentativeNewLoggable}>Add</button>
+          </li>
+        )}
       </ul>
 
       <h2>
@@ -122,6 +171,9 @@ function getDefaultState(): State {
       "gym end",
       "sleep",
     ],
+    isEditingLoggableEventNames: false,
+    tentativeNewLoggableEventName: "",
+
     events: [],
     showRedactedEvents: false,
   };

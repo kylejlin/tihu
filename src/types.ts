@@ -9,6 +9,9 @@ export interface StateProvider {
 
 export interface State {
   readonly loggableEventNames: readonly string[];
+  readonly isEditingLoggableEventNames: boolean;
+  readonly tentativeNewLoggableEventName: string;
+
   readonly events: readonly Event[];
   readonly showRedactedEvents: boolean;
 }
