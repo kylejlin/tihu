@@ -10,11 +10,12 @@ export interface StateProvider {
 export interface State {
   readonly loggableEventNames: readonly string[];
   readonly events: readonly Event[];
+  readonly showRedactedEvents: boolean;
 }
 
 export interface Event {
   readonly name: string;
   /** Number of milliseconds since the JS Date epoch. */
   readonly time: number;
-  readonly deleted: boolean;
+  readonly redacted: boolean;
 }

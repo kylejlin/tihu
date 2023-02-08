@@ -11,15 +11,18 @@ function App({ stateProvider }: Props) {
     stateProvider.saveState(state);
   });
 
+  const eventFilter = state.showRedactedEvents
+    ? (_event: Event) => true
+    : (event: Event) => !event.redacted;
   const sortedEventsRecentFirst = state.events
-    .slice()
+    .filter(eventFilter)
     .sort((a, b) => b.time - a.time);
 
   function logEvent(eventName: string) {
     const newEvent: Event = {
       name: eventName,
       time: Date.now(),
-      deleted: false,
+      redacted: false,
     };
     setState((state) => ({
       ...state,
@@ -27,11 +30,11 @@ function App({ stateProvider }: Props) {
     }));
   }
 
-  function deleteEvent(eventTime: number) {
+  function redactEvent(eventTime: number) {
     setState((state) => ({
       ...state,
       events: state.events.map((event) =>
-        event.time === eventTime ? { ...event, deleted: true } : event
+        event.time === eventTime ? { ...event, redacted: true } : event
       ),
     }));
   }
@@ -40,10 +43,30 @@ function App({ stateProvider }: Props) {
     setState((state) => ({
       ...state,
       events: state.events.map((event) =>
-        event.time === eventTime ? { ...event, deleted: false } : event
+        event.time === eventTime ? { ...event, redacted: false } : event
       ),
     }));
   }
+
+  function hideRedactedEvents() {
+    setState((state) => ({
+      ...state,
+      showRedactedEvents: false,
+    }));
+  }
+
+  function showRedactedEvents() {
+    setState((state) => ({
+      ...state,
+      showRedactedEvents: true,
+    }));
+  }
+
+  const toggleShowRedactedEventsButton = state.showRedactedEvents ? (
+    <button onClick={hideRedactedEvents}>Hide redacted</button>
+  ) : (
+    <button onClick={showRedactedEvents}>Show redacted</button>
+  );
 
   return (
     <div className="App">
@@ -62,15 +85,21 @@ function App({ stateProvider }: Props) {
         </li>
       </ul>
 
-      <h2>Events ({sortedEventsRecentFirst.length})</h2>
+      <h2>
+        Events ({sortedEventsRecentFirst.length}){" "}
+        {toggleShowRedactedEventsButton}
+      </h2>
       <ul>
         {sortedEventsRecentFirst.map((event) => (
-          <li key={event.time}>
+          <li
+            key={event.time}
+            className={"Event" + (event.redacted ? " Event--redacted" : "")}
+          >
             {event.name} {<EventTime time={event.time} />}{" "}
-            {event.deleted ? (
+            {event.redacted ? (
               <button onClick={() => restoreEvent(event.time)}>Restore</button>
             ) : (
-              <button onClick={() => deleteEvent(event.time)}>Delete</button>
+              <button onClick={() => redactEvent(event.time)}>Redact</button>
             )}
           </li>
         ))}
@@ -94,6 +123,7 @@ function getDefaultState(): State {
       "sleep",
     ],
     events: [],
+    showRedactedEvents: false,
   };
 }
 
