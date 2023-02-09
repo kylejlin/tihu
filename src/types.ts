@@ -12,9 +12,7 @@ export interface StateProvider {
 export interface State {
   readonly menuKind: MenuKind;
 
-  readonly loggableEventNames: readonly string[];
-  readonly isEditingLoggableEventNames: boolean;
-  readonly tentativeNewLoggableEventName: string;
+  readonly stamps: readonly string[];
 
   readonly events: readonly Event[];
   readonly showRedactedEvents: boolean;

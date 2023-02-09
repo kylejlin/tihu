@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  --nav-bar-height: 10vh;
 }
 
 .Event--redacted {
@@ -10,22 +10,101 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  height: calc(0.15 * var(--minor-axis));
+  height: var(--nav-bar-height);
 }
 
 .NavBar__button {
   --border-width: 1px;
-  width: calc(33vw - 2 * var(--border-width));
+  width: calc((100vw / 3) - 2 * var(--border-width));
   height: 100%;
   display: inline-block;
   background-color: #222;
   color: #eee;
   border: var(--border-width) solid #444;
   border-top: 0;
-  line-height: calc(0.15 * var(--minor-axis));
+  line-height: var(--nav-bar-height);
   user-select: none;
+  text-align: center;
 }
 
 .NavBar__button--current {
   background-color: #333;
+}
+
+.PageMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - var(--nav-bar-height));
+}
+
+.PageMenu--home {
+  --stamps-height: 85%;
+}
+
+.PageMenu--home__stamps {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--stamps-height);
+  width: 100%;
+}
+
+.StampList {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.Stamp {
+  --border-width: 1px;
+  width: 100%;
+  height: 2em;
+  line-height: 2em;
+  display: inline-block;
+  background-color: #222;
+  color: #eee;
+  border-top: var(--border-width) solid #444;
+  padding: 0;
+  margin: 0;
+  user-select: none;
+  list-style: none;
+}
+
+.Stamp__name {
+  margin-left: 1em;
+}
+
+.Stamp__button {
+  margin-left: 1em;
+  border: 1px solid #444;
+  background-color: #222;
+}
+
+.PageMenu--home__previousEvent {
+  /* --border-width: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  --natural-height: calc(100% - var(--stamps-height));
+  --height: calc(var(--natural-height) - var(--border-width));
+  height: var(--height);
+  border-top: var(--border-width) solid #444;
+  background-color: #eee; */
+}
+
+.PageMenu--home__previousEvent .Stamp {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #eee;
+  color: #222;
 }
