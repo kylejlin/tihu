@@ -5,3 +5,27 @@
 .Event--redacted {
   color: red;
 }
+
+.NavBar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: calc(0.15 * var(--minor-axis));
+}
+
+.NavBar__button {
+  --border-width: 1px;
+  width: calc(33vw - 2 * var(--border-width));
+  height: 100%;
+  display: inline-block;
+  background-color: #222;
+  color: #eee;
+  border: var(--border-width) solid #444;
+  border-top: 0;
+  line-height: calc(0.15 * var(--minor-axis));
+  user-select: none;
+}
+
+.NavBar__button--current {
+  background-color: #333;
+}

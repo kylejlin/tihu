@@ -10,12 +10,20 @@ export interface StateProvider {
 }
 
 export interface State {
+  readonly menuKind: MenuKind;
+
   readonly loggableEventNames: readonly string[];
   readonly isEditingLoggableEventNames: boolean;
   readonly tentativeNewLoggableEventName: string;
 
   readonly events: readonly Event[];
   readonly showRedactedEvents: boolean;
+}
+
+export enum MenuKind {
+  Home,
+  Stamps,
+  Events,
 }
 
 export type StateHook = readonly [

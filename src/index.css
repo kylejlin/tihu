@@ -7,3 +7,17 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
 }
+
+@media (min-aspect-ratio: 1/1) {
+  html {
+    --major-axis: 100vw;
+    --minor-axis: 100vh;
+  }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  html {
+    --major-axis: 100vh;
+    --minor-axis: 100vw;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Props, State, Event, StateHookProps } from "./types";
+import { Props, State, Event, StateHookProps, MenuKind } from "./types";
 
 function App({ stateProvider }: Props) {
   const stateHook = useState(
@@ -19,6 +19,8 @@ function App({ stateProvider }: Props) {
       <LoggableMenu stateHook={stateHook} />
 
       <EventsMenu stateHook={stateHook} />
+
+      <NavBar stateHook={stateHook} />
     </div>
   );
 }
@@ -27,6 +29,8 @@ export default App;
 
 function getDefaultState(): State {
   return {
+    menuKind: MenuKind.Home,
+
     loggableEventNames: [
       "bed",
       "dental start",
@@ -206,5 +210,62 @@ function EventsMenu({ stateHook }: StateHookProps) {
         ))}
       </ul>
     </>
+  );
+}
+
+function NavBar({ stateHook }: StateHookProps) {
+  const [state, setState] = stateHook;
+
+  function navigateToHomeMenu() {
+    setState((state) => ({
+      ...state,
+      menuKind: MenuKind.Home,
+    }));
+  }
+
+  function navigateToStampsMenu() {
+    setState((state) => ({
+      ...state,
+      menuKind: MenuKind.Stamps,
+    }));
+  }
+
+  function navigateToEventsMenu() {
+    setState((state) => ({
+      ...state,
+      menuKind: MenuKind.Events,
+    }));
+  }
+
+  return (
+    <div className="NavBar">
+      <div
+        className={
+          "NavBar__button" +
+          (state.menuKind === MenuKind.Home ? " NavBar__button--current" : "")
+        }
+        onClick={navigateToHomeMenu}
+      >
+        Home
+      </div>
+      <div
+        className={
+          "NavBar__button" +
+          (state.menuKind === MenuKind.Stamps ? " NavBar__button--current" : "")
+        }
+        onClick={navigateToStampsMenu}
+      >
+        Stamps
+      </div>
+      <div
+        className={
+          "NavBar__button" +
+          (state.menuKind === MenuKind.Events ? " NavBar__button--current" : "")
+        }
+        onClick={navigateToEventsMenu}
+      >
+        Events
+      </div>
+    </div>
   );
 }
