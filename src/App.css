@@ -2,10 +2,6 @@
   --nav-bar-height: 10vh;
 }
 
-.Event--redacted {
-  color: red;
-}
-
 .NavBar {
   position: absolute;
   left: 0;
@@ -86,19 +82,6 @@
   margin-left: 1em;
   border: 1px solid #444;
   background-color: #222;
-}
-
-.PageMenu--home__previousEvent {
-  /* --border-width: 1px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  --natural-height: calc(100% - var(--stamps-height));
-  --height: calc(var(--natural-height) - var(--border-width));
-  height: var(--height);
-  border-top: var(--border-width) solid #444;
-  background-color: #eee; */
 }
 
 .PageMenu--home__previousEvent .Stamp {
