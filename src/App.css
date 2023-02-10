@@ -9,7 +9,7 @@
   height: var(--nav-bar-height);
 }
 
-.NavBar__button {
+.NavBar__Button {
   --border-width: 1px;
   width: calc((100vw / 3) - 2 * var(--border-width));
   height: 100%;
@@ -23,7 +23,7 @@
   text-align: center;
 }
 
-.NavBar__button--current {
+.NavBar__Button--current {
   background-color: #333;
 }
 
@@ -39,7 +39,7 @@
   --stamps-height: 85%;
 }
 
-.PageMenu--home__stamps {
+.PageMenu--home__Stamps {
   position: absolute;
   top: 0;
   left: 0;
@@ -47,7 +47,7 @@
   width: 100%;
 }
 
-.StampList {
+.BarList--containerFilling {
   padding: 0;
   margin: 0;
   border: 0;
@@ -59,7 +59,7 @@
   overflow: auto;
 }
 
-.Stamp {
+.BarListItem {
   --border-width: 1px;
   width: 100%;
   height: 2em;
@@ -74,17 +74,20 @@
   list-style: none;
 }
 
-.Stamp__name {
+.BarListItem__Name {
   margin-left: 1em;
 }
 
-.Stamp__button {
+.BarListItem__Button {
   margin-left: 1em;
+}
+
+.BarListItem__Button--stamp {
   border: 1px solid #444;
   background-color: #222;
 }
 
-.PageMenu--home__previousEvent .Stamp {
+.PageMenu--home__PreviousEvent .BarListItem--stamp {
   position: absolute;
   bottom: 0;
   left: 0;

@@ -79,8 +79,8 @@ function NavBar({ stateHook }: StateHookProps) {
     <div className="NavBar">
       <div
         className={
-          "NavBar__button" +
-          (state.menuKind === MenuKind.Home ? " NavBar__button--current" : "")
+          "NavBar__Button" +
+          (state.menuKind === MenuKind.Home ? " NavBar__Button--current" : "")
         }
         onClick={navigateToHomeMenu}
       >
@@ -88,8 +88,8 @@ function NavBar({ stateHook }: StateHookProps) {
       </div>
       <div
         className={
-          "NavBar__button" +
-          (state.menuKind === MenuKind.Stamps ? " NavBar__button--current" : "")
+          "NavBar__Button" +
+          (state.menuKind === MenuKind.Stamps ? " NavBar__Button--current" : "")
         }
         onClick={navigateToStampsMenu}
       >
@@ -97,8 +97,8 @@ function NavBar({ stateHook }: StateHookProps) {
       </div>
       <div
         className={
-          "NavBar__button" +
-          (state.menuKind === MenuKind.Events ? " NavBar__button--current" : "")
+          "NavBar__Button" +
+          (state.menuKind === MenuKind.Events ? " NavBar__Button--current" : "")
         }
         onClick={navigateToEventsMenu}
       >
@@ -118,8 +118,8 @@ function HomeMenu({ stateHook }: StateHookProps) {
     sortedEventsRecentFirst[0].name.startsWith("▶️");
   return (
     <div className="PageMenu PageMenu--home">
-      <div className="PageMenu--home__stamps">
-        <ul className="StampList">
+      <div className="PageMenu--home__Stamps">
+        <ul className="BarList BarList--containerFilling">
           {isLastEventInProgress
             ? [
                 <StampableStamp
@@ -137,7 +137,7 @@ function HomeMenu({ stateHook }: StateHookProps) {
               ))}
         </ul>
       </div>
-      <div className="PageMenu--home__previousEvent">
+      <div className="PageMenu--home__PreviousEvent">
         {sortedEventsRecentFirst.length > 0 && (
           <Stamp
             stateHook={stateHook}
@@ -176,12 +176,17 @@ function Stamp({
   }
 
   return (
-    <li className="Stamp Stamp--stampable">
-      <span className="Stamp__name">{name}</span>
+    <li className="BarListItem BarListItem--stamp">
+      <span className="BarListItem__Name">{name}</span>
       {stampable && (
         <>
-          <button className="Stamp__button">🕒</button>
-          <button className="Stamp__button" onClick={addEventNow}>
+          <button className="BarListItem__Button BarListItem__Button--stamp">
+            🕒
+          </button>
+          <button
+            className="BarListItem__Button BarListItem__Button--stamp"
+            onClick={addEventNow}
+          >
             💮
           </button>
         </>
