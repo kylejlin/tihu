@@ -15,7 +15,7 @@ export interface State {
   readonly stamps: readonly string[];
 
   readonly events: readonly Event[];
-  readonly showRedactedEvents: boolean;
+  readonly eventsMenuKind: EventsMenuKind;
 }
 
 export enum MenuKind {
@@ -37,5 +37,9 @@ export interface Event {
   readonly name: string;
   /** Number of milliseconds since the JS Date epoch. */
   readonly time: number;
-  readonly redacted: boolean;
+}
+
+export enum EventsMenuKind {
+  List,
+  Line,
 }

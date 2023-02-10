@@ -1,6 +1,12 @@
 import React, { useState, useEffect, ReactNode } from "react";
 import "./App.css";
-import { Props, State, StateHookProps, MenuKind } from "./types";
+import {
+  Props,
+  State,
+  StateHookProps,
+  MenuKind,
+  EventsMenuKind,
+} from "./types";
 
 function App({ stateProvider }: Props) {
   const stateHook = useState(
@@ -41,7 +47,7 @@ function getDefaultState(): State {
     stamps: ["🛏️", "🏋️", "🦷", "🍛", "📝", "🎏", "🏖️"],
 
     events: [],
-    showRedactedEvents: false,
+    eventsMenuKind: EventsMenuKind.List,
   };
 }
 
@@ -105,7 +111,7 @@ function NavBar({ stateHook }: StateHookProps) {
 function HomeMenu({ stateHook }: StateHookProps) {
   const [state] = stateHook;
   const sortedEventsRecentFirst = state.events
-    .filter((x) => !x.redacted)
+    .slice()
     .sort((a, b) => b.time - a.time);
   const isLastEventInProgress =
     sortedEventsRecentFirst.length > 0 &&
@@ -189,5 +195,19 @@ function StampsMenu({ stateHook }: StateHookProps) {
 }
 
 function EventsMenu({ stateHook }: StateHookProps) {
+  const [state] = stateHook;
+  switch (state.eventsMenuKind) {
+    case EventsMenuKind.List:
+      return <EventListMenu stateHook={stateHook} />;
+    case EventsMenuKind.Line:
+      return <EventLineMenu stateHook={stateHook} />;
+  }
+}
+
+function EventListMenu({ stateHook }: StateHookProps) {
+  return <div className="PageMenu">TODO</div>;
+}
+
+function EventLineMenu({ stateHook }: StateHookProps) {
   return <div className="PageMenu">TODO</div>;
 }
