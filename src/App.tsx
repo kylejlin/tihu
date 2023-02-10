@@ -133,9 +133,10 @@ function HomeMenu({ stateHook }: StateHookProps) {
       </div>
       <div className="PageMenu--home__previousEvent">
         {sortedEventsRecentFirst.length > 0 && (
-          <StampableStamp
+          <Stamp
             stateHook={stateHook}
             name={sortedEventsRecentFirst[0].name}
+            stampable={false}
           />
         )}
       </div>
@@ -143,10 +144,15 @@ function HomeMenu({ stateHook }: StateHookProps) {
   );
 }
 
-function StampableStamp({
+function StampableStamp(props: StateHookProps & { name: string }) {
+  return <Stamp {...props} stampable={true} />;
+}
+
+function Stamp({
   stateHook,
   name,
-}: StateHookProps & { name: string }) {
+  stampable,
+}: StateHookProps & { name: string; stampable: boolean }) {
   const [, setState] = stateHook;
 
   function addEventNow() {
@@ -166,10 +172,14 @@ function StampableStamp({
   return (
     <li className="Stamp Stamp--stampable">
       <span className="Stamp__name">{name}</span>
-      <button className="Stamp__button">🕒</button>
-      <button className="Stamp__button" onClick={addEventNow}>
-        💮
-      </button>
+      {stampable && (
+        <>
+          <button className="Stamp__button">🕒</button>
+          <button className="Stamp__button" onClick={addEventNow}>
+            💮
+          </button>
+        </>
+      )}
     </li>
   );
 }
