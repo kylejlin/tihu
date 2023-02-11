@@ -8,6 +8,23 @@ export function EventBarList({ stateHook }: StateHookProps) {
   const sortedEventsRecentFirst = state.events
     .slice()
     .sort((a, b) => b.time - a.time);
+  const durations: readonly (null | number)[] =
+    sortedEventsRecentFirst.length % 2 === 0
+      ? sortedEventsRecentFirst.map((event, eventIndex) => {
+          if (eventIndex % 2 === 0) {
+            return event.time - sortedEventsRecentFirst[eventIndex + 1].time;
+          }
+          return sortedEventsRecentFirst[eventIndex - 1].time - event.time;
+        })
+      : sortedEventsRecentFirst.map((event, eventIndex) => {
+          if (eventIndex === 0) {
+            return null;
+          }
+          if (eventIndex % 2 === 0) {
+            return sortedEventsRecentFirst[eventIndex - 1].time - event.time;
+          }
+          return event.time - sortedEventsRecentFirst[eventIndex + 1].time;
+        });
 
   return (
     <div className="PageMenu--events__EventList">
@@ -18,6 +35,7 @@ export function EventBarList({ stateHook }: StateHookProps) {
             stateHook={stateHook}
             event={event}
             recencyIndex={eventIndex}
+            durationMillis={durations[eventIndex] ?? undefined}
           />
         ))}
       </ul>

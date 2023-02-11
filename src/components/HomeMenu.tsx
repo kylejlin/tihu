@@ -12,6 +12,11 @@ export function HomeMenu({ stateHook }: StateHookProps) {
   const isLastEventInProgress =
     sortedEventsRecentFirst.length > 0 &&
     sortedEventsRecentFirst[0].name.startsWith("▶️");
+  const previousEventDurationMillis =
+    sortedEventsRecentFirst.length >= 2 &&
+    sortedEventsRecentFirst.length % 2 === 0
+      ? sortedEventsRecentFirst[0].time - sortedEventsRecentFirst[1].time
+      : null;
   return (
     <div className="PageMenu PageMenu--home">
       <div className="PageMenu--home__Stamps">
@@ -39,6 +44,7 @@ export function HomeMenu({ stateHook }: StateHookProps) {
             stateHook={stateHook}
             event={sortedEventsRecentFirst[0]}
             recencyIndex={0}
+            durationMillis={previousEventDurationMillis ?? undefined}
           />
         )}
       </div>

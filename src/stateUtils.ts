@@ -1,4 +1,4 @@
-import { parseTihuTimeString } from "./misc";
+import { parseTihuDateTimeString } from "./misc";
 import {
   State,
   MenuKind,
@@ -27,7 +27,7 @@ export function isTentativeLastEventTimeValid(
   if (state.tentativeLastEventTime === null) {
     return { isValid: false };
   }
-  const lastTime = parseTihuTimeString(state.tentativeLastEventTime);
+  const lastTime = parseTihuDateTimeString(state.tentativeLastEventTime);
   if (lastTime === null) {
     return { isValid: false };
   }

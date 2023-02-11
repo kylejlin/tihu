@@ -1,4 +1,4 @@
-export function toShortTimeString(d: Date): string {
+export function toTihuDateTimeString(d: Date): string {
   const year = d.getFullYear();
   const month = d.getMonth() + 1;
   const day = d.getDate();
@@ -10,7 +10,7 @@ export function toShortTimeString(d: Date): string {
     .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 }
 
-export function parseTihuTimeString(s: string): null | Date {
+export function parseTihuDateTimeString(s: string): null | Date {
   const match = s.match(
     /^(\d+)\s*\/\s*(\d+)\s*\/\s*(\d+)\s+(\d+)\s*:\s*(\d+)\s*(?::(\d+))?\s*$/
   );
@@ -40,4 +40,11 @@ export function argMax<T>(array: readonly T[], f: (t: T) => number): T {
     }
   }
   return array[maxIndex];
+}
+
+export function toTihuHourMinuteString(durationMillis: number): string {
+  const durationSeconds = Math.floor(durationMillis / 1000);
+  const hours = Math.floor(durationSeconds / 3600);
+  const minutes = Math.floor((durationSeconds % 3600) / 60);
+  return `${hours}:${minutes.toString().padStart(2, "0")}`;
 }

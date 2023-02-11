@@ -1,6 +1,10 @@
 import React from "react";
 import "../../App.css";
-import { argMax, toShortTimeString } from "../../misc";
+import {
+  argMax,
+  toTihuDateTimeString,
+  toTihuHourMinuteString,
+} from "../../misc";
 import { isTentativeLastEventTimeValid } from "../../stateUtils";
 import { StateHookProps, TihuEvent } from "../../types";
 
@@ -8,7 +12,12 @@ export function EventBar({
   stateHook,
   event,
   recencyIndex,
-}: StateHookProps & { event: TihuEvent; recencyIndex: number }) {
+  durationMillis,
+}: StateHookProps & {
+  event: TihuEvent;
+  recencyIndex: number;
+  durationMillis?: number;
+}) {
   const [state, setState] = stateHook;
 
   const time = new Date(event.time);
@@ -25,7 +34,7 @@ export function EventBar({
       const lastEvent = argMax(state.events, (event) => event.time);
       return {
         ...state,
-        tentativeLastEventTime: toShortTimeString(new Date(lastEvent.time)),
+        tentativeLastEventTime: toTihuDateTimeString(new Date(lastEvent.time)),
         lastEventTimeEditStartDateDotNow: Date.now(),
       };
     });
@@ -106,7 +115,14 @@ export function EventBar({
             {" "}
             {month}/{dayOfMonth} {dayOfWeek}{" "}
             {time.getHours().toString().padStart(2, "0")}:
-            {time.getMinutes().toString().padStart(2, "0")}
+            {time.getMinutes().toString().padStart(2, "0")}{" "}
+            {durationMillis === undefined ? (
+              <span>todo spacer</span>
+            ) : (
+              <span className="Duration Duration--final">
+                {toTihuHourMinuteString(durationMillis)}
+              </span>
+            )}
           </>
         )}
       </span>
