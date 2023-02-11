@@ -14,7 +14,7 @@ export interface State {
 
   readonly stamps: readonly string[];
 
-  readonly events: readonly Event[];
+  readonly events: readonly TihuEvent[];
   readonly eventsMenuKind: EventsMenuKind;
   readonly isAskingForEventDeletionConfirmation: boolean;
   readonly tentativeLastEventTime: null | string;
@@ -36,7 +36,8 @@ export interface StateHookProps {
   readonly stateHook: StateHook;
 }
 
-export interface Event {
+/** We call it `TihuEvent` to avoid a name clash with the native `Event`. */
+export interface TihuEvent {
   readonly name: string;
   /** Number of milliseconds since the JS Date epoch. */
   readonly time: number;
