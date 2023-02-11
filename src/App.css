@@ -109,3 +109,53 @@
   background-color: #eee;
   color: #222;
 }
+
+.PageMenu--events {
+  --events-menu-navbar-height: 8vh;
+}
+
+.PageMenu--events__EventList {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(100% - var(--events-menu-navbar-height));
+  width: 100%;
+}
+
+.PageMenu--events__EventsMenuNavBar {
+  --border-width: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  --borderless-height: calc(
+    var(--events-menu-navbar-height) - 2 * var(--border-width)
+  );
+  height: var(--borderless-height);
+  line-height: var(--borderless-height);
+  width: 100%;
+  background-color: #333;
+  border-top: var(--border-width) solid #444;
+  border-bottom: var(--border-width) solid #444;
+}
+
+.PageMenu--events__EventsMenuNavBar__Button {
+  --width: 20%;
+  width: var(--width);
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid #444;
+  margin: 0;
+  display: block;
+  text-align: center;
+  position: absolute;
+  top: 0;
+}
+
+.PageMenu--events__EventsMenuNavBar__Button--list {
+  left: 0;
+}
+
+.PageMenu--events__EventsMenuNavBar__Button--line {
+  left: calc(1 * var(--width));
+}

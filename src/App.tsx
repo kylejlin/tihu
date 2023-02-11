@@ -227,36 +227,46 @@ function EventListMenu({ stateHook }: StateHookProps) {
 
   return (
     <div className="PageMenu PageMenu--events PageMenu--events--eventList">
-      <ul className="BarList BarList--containerFilling">
-        {sortedEventsRecentFirst.map((event, eventIndex) => {
-          const time = new Date(event.time);
-          const month = time.getMonth() + 1;
-          const dayOfMonth = time.getDate();
-          const dayOfWeek = "日月火水木金土"[time.getDay()];
-          return (
-            <li className="BarListItem BarListItem--event">
-              <span className="BarListItem__Name">
-                {event.name} {month}/{dayOfMonth} {dayOfWeek}{" "}
-                {time.getHours().toString().padStart(2, "0")}:
-                {time.getMinutes().toString().padStart(2, "0")}
-              </span>
-              {eventIndex === 0 && (
-                <>
-                  <button className="BarListItem__Button BarListItem__Button--event">
-                    🕒
-                  </button>
-                  <button
-                    className="BarListItem__Button BarListItem__Button--event"
-                    onClick={removeLastEvent}
-                  >
-                    🗑️
-                  </button>
-                </>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+      <div className="PageMenu--events__EventList">
+        <ul className="BarList BarList--containerFilling">
+          {sortedEventsRecentFirst.map((event, eventIndex) => {
+            const time = new Date(event.time);
+            const month = time.getMonth() + 1;
+            const dayOfMonth = time.getDate();
+            const dayOfWeek = "日月火水木金土"[time.getDay()];
+            return (
+              <li className="BarListItem BarListItem--event">
+                <span className="BarListItem__Name">
+                  {event.name} {month}/{dayOfMonth} {dayOfWeek}{" "}
+                  {time.getHours().toString().padStart(2, "0")}:
+                  {time.getMinutes().toString().padStart(2, "0")}
+                </span>
+                {eventIndex === 0 && (
+                  <>
+                    <button className="BarListItem__Button BarListItem__Button--event">
+                      🕒
+                    </button>
+                    <button
+                      className="BarListItem__Button BarListItem__Button--event"
+                      onClick={removeLastEvent}
+                    >
+                      🗑️
+                    </button>
+                  </>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div className="PageMenu--events__EventsMenuNavBar">
+        <button className="PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--list">
+          ✏️
+        </button>
+        <button className="PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--line">
+          📈
+        </button>
+      </div>
     </div>
   );
 }
