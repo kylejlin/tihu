@@ -6,8 +6,10 @@ import {
   LastEventTimeValidity,
 } from "./types";
 
-export function getDefaultState(): State {
+export function getDefaultState({ dateDotNow }: { dateDotNow: number }): State {
   return {
+    dateDotNow,
+
     menuKind: MenuKind.Home,
 
     stamps: ["🛏️", "🏋️", "🦷", "🍛", "📝", "🎏", "🏖️"],

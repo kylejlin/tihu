@@ -178,8 +178,15 @@
 }
 
 .Duration {
-  background-color: #24b;
   color: #eee;
   padding: 0.1em;
   border-radius: 0.1em;
+}
+
+.Duration--final {
+  background-color: #24b;
+}
+
+.Duration--active {
+  background-color: #284;
 }

@@ -117,7 +117,9 @@ export function EventBar({
             {time.getHours().toString().padStart(2, "0")}:
             {time.getMinutes().toString().padStart(2, "0")}{" "}
             {durationMillis === undefined ? (
-              <span>todo spacer</span>
+              <span className="Duration Duration--active">
+                {toTihuHourMinuteString(state.dateDotNow - event.time)}
+              </span>
             ) : (
               <span className="Duration Duration--final">
                 {toTihuHourMinuteString(durationMillis)}

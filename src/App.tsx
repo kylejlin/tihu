@@ -9,12 +9,20 @@ import { Props, MenuKind } from "./types";
 
 function App({ stateProvider }: Props) {
   const stateHook = useState(
-    stateProvider.getSavedState() ?? getDefaultState()
+    stateProvider.getSavedState() ?? getDefaultState({ dateDotNow: Date.now() })
   );
-  const [state] = stateHook;
+  const [state, setState] = stateHook;
 
   useEffect(() => {
     stateProvider.saveState(state);
+  });
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setState((state) => ({ ...state, dateDotNow: Date.now() }));
+    }, 1000);
+
+    return () => clearInterval(intervalId);
   });
 
   const activeMenu = ((): ReactNode => {
