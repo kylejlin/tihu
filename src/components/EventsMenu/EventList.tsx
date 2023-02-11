@@ -16,6 +16,7 @@ export function EventList({ stateHook }: StateHookProps) {
       return {
         ...state,
         tentativeLastEventTime: toShortTimeString(new Date(lastEvent.time)),
+        lastEventTimeEditStartDateDotNow: Date.now(),
       };
     });
   }
@@ -29,7 +30,10 @@ export function EventList({ stateHook }: StateHookProps) {
 
   function stopEditingLastEventTime() {
     setState((state) => {
-      const validity = isTentativeLastEventTimeValid(state);
+      const validity = isTentativeLastEventTimeValid(
+        state,
+        state.lastEventTimeEditStartDateDotNow ?? 0
+      );
       if (!validity.isValid) {
         return { ...state, tentativeLastEventTime: null };
       }
@@ -80,8 +84,10 @@ export function EventList({ stateHook }: StateHookProps) {
           const month = time.getMonth() + 1;
           const dayOfMonth = time.getDate();
           const dayOfWeek = "日月火水木金土"[time.getDay()];
-          const tentativeLastEventTimeValidity =
-            isTentativeLastEventTimeValid(state);
+          const tentativeLastEventTimeValidity = isTentativeLastEventTimeValid(
+            state,
+            state.lastEventTimeEditStartDateDotNow ?? 0
+          );
 
           return (
             <li className="BarListItem BarListItem--event" key={event.time}>

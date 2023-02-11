@@ -18,6 +18,7 @@ export interface State {
   readonly eventsMenuKind: EventsMenuKind;
   readonly isAskingForEventDeletionConfirmation: boolean;
   readonly tentativeLastEventTime: null | string;
+  readonly lastEventTimeEditStartDateDotNow: null | number;
 }
 
 export enum MenuKind {

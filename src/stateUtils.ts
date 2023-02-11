@@ -16,17 +16,22 @@ export function getDefaultState(): State {
     eventsMenuKind: EventsMenuKind.List,
     isAskingForEventDeletionConfirmation: false,
     tentativeLastEventTime: null,
+    lastEventTimeEditStartDateDotNow: null,
   };
 }
 
 export function isTentativeLastEventTimeValid(
-  state: State
+  state: State,
+  dateDotNow: number
 ): LastEventTimeValidity {
   if (state.tentativeLastEventTime === null) {
     return { isValid: false };
   }
   const lastTime = parseTihuTimeString(state.tentativeLastEventTime);
   if (lastTime === null) {
+    return { isValid: false };
+  }
+  if (lastTime.valueOf() > dateDotNow) {
     return { isValid: false };
   }
   const sortedEventsRecentFirst = state.events
