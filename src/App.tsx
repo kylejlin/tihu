@@ -48,6 +48,7 @@ function getDefaultState(): State {
 
     events: [],
     eventsMenuKind: EventsMenuKind.List,
+    tentativeLastEventTime: null,
   };
 }
 
@@ -270,6 +271,23 @@ function EventList({ stateHook }: StateHookProps) {
     .slice()
     .sort((a, b) => b.time - a.time);
 
+  function startEditingLastEventTime() {
+    setState((state) => {
+      const lastEvent = argMax(state.events, (event) => event.time);
+      return {
+        ...state,
+        tentativeLastEventTime: toShortTimeString(new Date(lastEvent.time)),
+      };
+    });
+  }
+
+  function editTentativeLastEventTime(e: React.ChangeEvent<HTMLInputElement>) {
+    setState((state) => ({
+      ...state,
+      tentativeLastEventTime: e.target.value,
+    }));
+  }
+
   function removeLastEvent() {
     setState((state) => {
       const lastEvent = argMax(state.events, (event) => event.time);
@@ -288,16 +306,44 @@ function EventList({ stateHook }: StateHookProps) {
           const month = time.getMonth() + 1;
           const dayOfMonth = time.getDate();
           const dayOfWeek = "日月火水木金土"[time.getDay()];
+
+          const isTentativeLastEventTimeValid =
+            state.tentativeLastEventTime !== null &&
+            parseTihuTimeString(state.tentativeLastEventTime) !== null &&
+            (sortedEventsRecentFirst.length < 2 ||
+              parseTihuTimeString(state.tentativeLastEventTime)!.getTime() >=
+                sortedEventsRecentFirst[1].time);
+
           return (
             <li className="BarListItem BarListItem--event" key={event.time}>
               <span className="BarListItem__Name">
-                {event.name} {month}/{dayOfMonth} {dayOfWeek}{" "}
-                {time.getHours().toString().padStart(2, "0")}:
-                {time.getMinutes().toString().padStart(2, "0")}
+                {event.name}
+                {eventIndex === 0 && state.tentativeLastEventTime !== null ? (
+                  <input
+                    className={
+                      "BarListItem--event__TimeInput" +
+                      (!isTentativeLastEventTimeValid
+                        ? " BarListItem--event__TimeInput--invalid"
+                        : "")
+                    }
+                    value={state.tentativeLastEventTime}
+                    onChange={editTentativeLastEventTime}
+                  />
+                ) : (
+                  <>
+                    {" "}
+                    {month}/{dayOfMonth} {dayOfWeek}{" "}
+                    {time.getHours().toString().padStart(2, "0")}:
+                    {time.getMinutes().toString().padStart(2, "0")}
+                  </>
+                )}
               </span>
               {eventIndex === 0 && (
                 <>
-                  <button className="BarListItem__Button BarListItem__Button--event">
+                  <button
+                    className="BarListItem__Button BarListItem__Button--event"
+                    onClick={startEditingLastEventTime}
+                  >
                     🕒
                   </button>
                   <button
@@ -331,4 +377,35 @@ function argMax<T>(array: readonly T[], f: (t: T) => number): T {
     }
   }
   return array[maxIndex];
+}
+
+function toShortTimeString(d: Date): string {
+  const year = d.getFullYear();
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const hour = d.getHours();
+  const minute = d.getMinutes();
+  const seconds = d.getSeconds();
+  return `${year}/${month}/${day} ${hour.toString().padStart(2, "0")}:${minute
+    .toString()
+    .padStart(2, "0")}${seconds.toString().padStart(2, "0")}`;
+}
+
+function parseTihuTimeString(s: string): null | Date {
+  const match = s.match(
+    /^(\d+)\s*\/\s*(\d+)\s*\/\s*(\d+)\s+(\d+)\s*:\s*(\d+)\s*(?::(\d+))?\s*$/
+  );
+  if (match === null) {
+    return null;
+  }
+  const year = parseInt(match[1], 10);
+  const month = parseInt(match[2], 10) - 1;
+  const day = parseInt(match[3], 10);
+  const hours = parseInt(match[4], 10);
+  const minutes = parseInt(match[5], 10);
+  const seconds = match[6] === undefined ? 0 : parseInt(match[6], 10);
+  if ([year, month, day, hours, minutes, seconds].some(Number.isNaN)) {
+    return null;
+  }
+  return new Date(year, month, day, hours, minutes, seconds);
 }

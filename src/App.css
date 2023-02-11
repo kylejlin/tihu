@@ -163,3 +163,11 @@
 .PageMenu--events__EventsMenuNavBar__Button--line {
   left: calc(1 * var(--width));
 }
+
+.BarListItem--event__TimeInput {
+  color: black;
+}
+
+.BarListItem--event__TimeInput--invalid {
+  color: red;
+}

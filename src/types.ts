@@ -16,6 +16,7 @@ export interface State {
 
   readonly events: readonly Event[];
   readonly eventsMenuKind: EventsMenuKind;
+  readonly tentativeLastEventTime: null | string;
 }
 
 export enum MenuKind {
