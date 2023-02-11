@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/tihu/static/css/main.6a241c17.css",
+    "main.js": "/tihu/static/js/main.af909e65.js",
+    "static/js/787.f5769e72.chunk.js": "/tihu/static/js/787.f5769e72.chunk.js",
+    "index.html": "/tihu/index.html",
+    "main.6a241c17.css.map": "/tihu/static/css/main.6a241c17.css.map",
+    "main.af909e65.js.map": "/tihu/static/js/main.af909e65.js.map",
+    "787.f5769e72.chunk.js.map": "/tihu/static/js/787.f5769e72.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6a241c17.css",
+    "static/js/main.af909e65.js"
+  ]
+}
