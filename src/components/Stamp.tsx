@@ -27,17 +27,12 @@ export function Stamp({
     <li className="BarListItem BarListItem--stamp">
       <span className="BarListItem__Name">{name}</span>
       {stampable && (
-        <>
-          <button className="BarListItem__Button BarListItem__Button--stamp">
-            🕒
-          </button>
-          <button
-            className="BarListItem__Button BarListItem__Button--stamp"
-            onClick={addEventNow}
-          >
-            💮
-          </button>
-        </>
+        <button
+          className="BarListItem__Button BarListItem__Button--stamp"
+          onClick={addEventNow}
+        >
+          ⬇️
+        </button>
       )}
     </li>
   );
