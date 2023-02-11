@@ -260,10 +260,24 @@ function EventListMenu({ stateHook }: StateHookProps) {
         </ul>
       </div>
       <div className="PageMenu--events__EventsMenuNavBar">
-        <button className="PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--list">
+        <button
+          className={
+            "PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--list" +
+            (state.eventsMenuKind === EventsMenuKind.List
+              ? " PageMenu--events__EventsMenuNavBar__Button--active"
+              : "")
+          }
+        >
           ✏️
         </button>
-        <button className="PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--line">
+        <button
+          className={
+            "PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--line" +
+            (state.eventsMenuKind === EventsMenuKind.Line
+              ? " PageMenu--events__EventsMenuNavBar__Button--active"
+              : "")
+          }
+        >
           📈
         </button>
       </div>
