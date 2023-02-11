@@ -37,9 +37,10 @@ export function isTentativeLastEventTimeValid(
   const sortedEventsRecentFirst = state.events
     .slice()
     .sort((a, b) => b.time - a.time);
+
   if (
     sortedEventsRecentFirst.length < 2 ||
-    lastTime.valueOf() >= sortedEventsRecentFirst[1].time
+    lastTime.valueOf() > sortedEventsRecentFirst[1].time
   ) {
     return { isValid: true, validTime: lastTime };
   }
