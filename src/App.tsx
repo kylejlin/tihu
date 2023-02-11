@@ -289,7 +289,7 @@ function EventList({ stateHook }: StateHookProps) {
           const dayOfMonth = time.getDate();
           const dayOfWeek = "日月火水木金土"[time.getDay()];
           return (
-            <li className="BarListItem BarListItem--event">
+            <li className="BarListItem BarListItem--event" key={event.time}>
               <span className="BarListItem__Name">
                 {event.name} {month}/{dayOfMonth} {dayOfWeek}{" "}
                 {time.getHours().toString().padStart(2, "0")}:
