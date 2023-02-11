@@ -49,6 +49,7 @@ function getDefaultState(): State {
 
     events: [],
     eventsMenuKind: EventsMenuKind.List,
+    isAskingForEventDeletionConfirmation: false,
     tentativeLastEventTime: null,
   };
 }
@@ -309,12 +310,27 @@ function EventList({ stateHook }: StateHookProps) {
     });
   }
 
+  function askForEventDeletionConfirmation() {
+    setState((state) => ({
+      ...state,
+      isAskingForEventDeletionConfirmation: true,
+    }));
+  }
+
+  function cancelEventDeletion() {
+    setState((state) => ({
+      ...state,
+      isAskingForEventDeletionConfirmation: false,
+    }));
+  }
+
   function removeLastEvent() {
     setState((state) => {
       const lastEvent = argMax(state.events, (event) => event.time);
       return {
         ...state,
         events: state.events.filter((event) => event.time !== lastEvent.time),
+        isAskingForEventDeletionConfirmation: false,
       };
     });
   }
@@ -353,7 +369,31 @@ function EventList({ stateHook }: StateHookProps) {
                 )}
               </span>
               {eventIndex === 0 &&
-                (state.tentativeLastEventTime === null ? (
+                (state.isAskingForEventDeletionConfirmation ? (
+                  <>
+                    <button
+                      className="BarListItem__Button BarListItem__Button--event BarListItem__Button--event--finalDelete"
+                      onClick={removeLastEvent}
+                    >
+                      🗑️
+                    </button>
+                    <button
+                      className="BarListItem__Button BarListItem__Button--event"
+                      onClick={cancelEventDeletion}
+                    >
+                      ⬅️
+                    </button>
+                  </>
+                ) : state.tentativeLastEventTime !== null ? (
+                  <>
+                    <button
+                      className="BarListItem__Button BarListItem__Button--event"
+                      onClick={stopEditingLastEventTime}
+                    >
+                      ✅
+                    </button>
+                  </>
+                ) : (
                   <>
                     <button
                       className="BarListItem__Button BarListItem__Button--event"
@@ -363,18 +403,9 @@ function EventList({ stateHook }: StateHookProps) {
                     </button>
                     <button
                       className="BarListItem__Button BarListItem__Button--event"
-                      onClick={removeLastEvent}
+                      onClick={askForEventDeletionConfirmation}
                     >
                       🗑️
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className="BarListItem__Button BarListItem__Button--event"
-                      onClick={stopEditingLastEventTime}
-                    >
-                      ✅
                     </button>
                   </>
                 ))}

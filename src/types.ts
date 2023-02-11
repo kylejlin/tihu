@@ -16,6 +16,7 @@ export interface State {
 
   readonly events: readonly Event[];
   readonly eventsMenuKind: EventsMenuKind;
+  readonly isAskingForEventDeletionConfirmation: boolean;
   readonly tentativeLastEventTime: null | string;
 }
 

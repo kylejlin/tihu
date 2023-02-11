@@ -102,6 +102,11 @@
   background-color: #eee;
 }
 
+.BarListItem__Button--event--finalDelete {
+  border: 1px solid #c88;
+  background-color: #fcc;
+}
+
 .PageMenu--home__PreviousEvent .BarListItem--stamp {
   position: absolute;
   bottom: 0;
