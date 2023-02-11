@@ -225,6 +225,20 @@ function EventListMenu({ stateHook }: StateHookProps) {
     });
   }
 
+  function navigateToEventList() {
+    setState((state) => ({
+      ...state,
+      eventsMenuKind: EventsMenuKind.List,
+    }));
+  }
+
+  function navigateToEventLine() {
+    setState((state) => ({
+      ...state,
+      eventsMenuKind: EventsMenuKind.Line,
+    }));
+  }
+
   return (
     <div className="PageMenu PageMenu--events PageMenu--events--eventList">
       <div className="PageMenu--events__EventList">
@@ -267,6 +281,7 @@ function EventListMenu({ stateHook }: StateHookProps) {
               ? " PageMenu--events__EventsMenuNavBar__Button--active"
               : "")
           }
+          onClick={navigateToEventList}
         >
           ✏️
         </button>
@@ -277,6 +292,7 @@ function EventListMenu({ stateHook }: StateHookProps) {
               ? " PageMenu--events__EventsMenuNavBar__Button--active"
               : "")
           }
+          onClick={navigateToEventLine}
         >
           📈
         </button>
