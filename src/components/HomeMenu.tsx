@@ -1,7 +1,8 @@
 import React from "react";
 import { StateHookProps } from "../types";
 import "../App.css";
-import { StampableStamp, Stamp } from "./Stamp";
+import { StampableStamp } from "./Stamp";
+import { EventBar } from "./EventsMenu/EventBar";
 
 export function HomeMenu({ stateHook }: StateHookProps) {
   const [state] = stateHook;
@@ -34,10 +35,10 @@ export function HomeMenu({ stateHook }: StateHookProps) {
       </div>
       <div className="PageMenu--home__PreviousEvent">
         {sortedEventsRecentFirst.length > 0 && (
-          <Stamp
+          <EventBar
             stateHook={stateHook}
-            name={sortedEventsRecentFirst[0].name}
-            stampable={false}
+            event={sortedEventsRecentFirst[0]}
+            recencyIndex={0}
           />
         )}
       </div>

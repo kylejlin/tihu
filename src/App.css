@@ -107,7 +107,7 @@
   background-color: #fcc;
 }
 
-.PageMenu--home__PreviousEvent .BarListItem--stamp {
+.PageMenu--home__PreviousEvent .BarListItem {
   position: absolute;
   bottom: 0;
   left: 0;

@@ -17,9 +17,11 @@ export function Stamp({
         {
           name,
           time: Date.now(),
-          redacted: false,
         },
       ],
+      tentativeLastEventTime: null,
+      isAskingForEventDeletionConfirmation: false,
+      lastEventTimeEditStartDateDotNow: null,
     }));
   }
 
