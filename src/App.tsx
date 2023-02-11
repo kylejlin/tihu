@@ -210,9 +210,70 @@ function EventsMenu({ stateHook }: StateHookProps) {
 }
 
 function EventListMenu({ stateHook }: StateHookProps) {
-  return <div className="PageMenu">TODO</div>;
+  const [state, setState] = stateHook;
+  const sortedEventsRecentFirst = state.events
+    .slice()
+    .sort((a, b) => b.time - a.time);
+
+  function removeLastEvent() {
+    setState((state) => {
+      const lastEvent = argMax(state.events, (event) => event.time);
+      return {
+        ...state,
+        events: state.events.filter((event) => event.time !== lastEvent.time),
+      };
+    });
+  }
+
+  return (
+    <div className="PageMenu PageMenu--events PageMenu--events--eventList">
+      <ul className="BarList BarList--containerFilling">
+        {sortedEventsRecentFirst.map((event, eventIndex) => {
+          const time = new Date(event.time);
+          const month = time.getMonth() + 1;
+          const dayOfMonth = time.getDate();
+          const dayOfWeek = "日月火水木金土"[time.getDay()];
+          return (
+            <li className="BarListItem BarListItem--event">
+              <span className="BarListItem__Name">
+                {event.name} {month}/{dayOfMonth} {dayOfWeek}{" "}
+                {time.getHours().toString().padStart(2, "0")}:
+                {time.getMinutes().toString().padStart(2, "0")}
+              </span>
+              {eventIndex === 0 && (
+                <>
+                  <button className="BarListItem__Button BarListItem__Button--event">
+                    🕒
+                  </button>
+                  <button
+                    className="BarListItem__Button BarListItem__Button--event"
+                    onClick={removeLastEvent}
+                  >
+                    🗑️
+                  </button>
+                </>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
 
 function EventLineMenu({ stateHook }: StateHookProps) {
   return <div className="PageMenu">TODO</div>;
+}
+
+function argMax<T>(array: readonly T[], f: (t: T) => number): T {
+  let maxIndex = -1;
+  let maxValue = -Infinity;
+  for (let i = 0; i < array.length; i++) {
+    const value = f(array[i]);
+    if (value > maxValue) {
+      maxIndex = i;
+      maxValue = value;
+    }
+  }
+  return array[maxIndex];
 }

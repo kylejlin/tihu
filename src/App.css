@@ -65,13 +65,23 @@
   height: 2em;
   line-height: 2em;
   display: inline-block;
-  background-color: #222;
-  color: #eee;
-  border-top: var(--border-width) solid #444;
   padding: 0;
   margin: 0;
   user-select: none;
   list-style: none;
+  border-top: var(--border-width) solid;
+}
+
+.BarListItem--stamp {
+  background-color: #222;
+  color: #eee;
+  border-color: #444;
+}
+
+.BarListItem--event {
+  background-color: #eee;
+  color: #222;
+  border-color: #ccc;
 }
 
 .BarListItem__Name {
@@ -85,6 +95,11 @@
 .BarListItem__Button--stamp {
   border: 1px solid #444;
   background-color: #222;
+}
+
+.BarListItem__Button--event {
+  border: 1px solid #ccc;
+  background-color: #eee;
 }
 
 .PageMenu--home__PreviousEvent .BarListItem--stamp {
