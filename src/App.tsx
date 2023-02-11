@@ -204,9 +204,9 @@ function EventsMenu({ stateHook }: StateHookProps) {
   const activeMenu = ((): ReactNode => {
     switch (state.eventsMenuKind) {
       case EventsMenuKind.List:
-        return <EventListMenu stateHook={stateHook} />;
+        return <EventList stateHook={stateHook} />;
       case EventsMenuKind.Line:
-        return <EventLineMenu stateHook={stateHook} />;
+        return <EventLine stateHook={stateHook} />;
     }
   })();
 
@@ -264,7 +264,7 @@ function EventsMenuNavBar({ stateHook }: StateHookProps) {
   );
 }
 
-function EventListMenu({ stateHook }: StateHookProps) {
+function EventList({ stateHook }: StateHookProps) {
   const [state, setState] = stateHook;
   const sortedEventsRecentFirst = state.events
     .slice()
@@ -316,7 +316,7 @@ function EventListMenu({ stateHook }: StateHookProps) {
   );
 }
 
-function EventLineMenu({ stateHook }: StateHookProps) {
+function EventLine({ stateHook }: StateHookProps) {
   return <div className="PageMenu">TODO</div>;
 }
 
