@@ -3,6 +3,7 @@ import "../../App.css";
 import {
   argMax,
   toTihuDateTimeString,
+  toTihuHourMinuteSecondString,
   toTihuHourMinuteString,
 } from "../../misc";
 import { isTentativeLastEventTimeValid } from "../../stateUtils";
@@ -118,7 +119,9 @@ export function EventBar({
             {time.getMinutes().toString().padStart(2, "0")}{" "}
             {durationMillis === undefined ? (
               <span className="Duration Duration--active">
-                {toTihuHourMinuteString(state.dateDotNow - event.time)}
+                {toTihuHourMinuteSecondString(
+                  Math.max(0, state.dateDotNow - event.time)
+                )}
               </span>
             ) : (
               <span className="Duration Duration--final">

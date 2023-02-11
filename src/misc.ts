@@ -48,3 +48,13 @@ export function toTihuHourMinuteString(durationMillis: number): string {
   const minutes = Math.floor((durationSeconds % 3600) / 60);
   return `${hours}:${minutes.toString().padStart(2, "0")}`;
 }
+
+export function toTihuHourMinuteSecondString(durationMillis: number): string {
+  const durationSeconds = Math.floor(durationMillis / 1000);
+  const hours = Math.floor(durationSeconds / 3600);
+  const minutes = Math.floor((durationSeconds % 3600) / 60);
+  const seconds = durationSeconds % 60;
+  return `${hours}:${minutes.toString().padStart(2, "0")}+${seconds
+    .toString()
+    .padStart(2, "0")}`;
+}
