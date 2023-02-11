@@ -44,3 +44,14 @@ export enum EventsMenuKind {
   List,
   Line,
 }
+
+export type LastEventTimeValidity = ValidLastEventTime | InvalidLastEventTime;
+
+export interface ValidLastEventTime {
+  readonly isValid: true;
+  readonly validTime: Date;
+}
+
+export interface InvalidLastEventTime {
+  readonly isValid: false;
+}

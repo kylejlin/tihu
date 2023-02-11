@@ -6,6 +6,7 @@ import {
   StateHookProps,
   MenuKind,
   EventsMenuKind,
+  LastEventTimeValidity,
 } from "./types";
 
 function App({ stateProvider }: Props) {
@@ -288,6 +289,26 @@ function EventList({ stateHook }: StateHookProps) {
     }));
   }
 
+  function stopEditingLastEventTime() {
+    setState((state) => {
+      const validity = isTentativeLastEventTimeValid(state);
+      if (!validity.isValid) {
+        return state;
+      }
+
+      const lastEvent = argMax(state.events, (event) => event.time);
+      return {
+        ...state,
+        events: state.events.map((event) =>
+          event.time === lastEvent.time
+            ? { ...event, time: validity.validTime.valueOf() }
+            : event
+        ),
+        tentativeLastEventTime: null,
+      };
+    });
+  }
+
   function removeLastEvent() {
     setState((state) => {
       const lastEvent = argMax(state.events, (event) => event.time);
@@ -307,13 +328,6 @@ function EventList({ stateHook }: StateHookProps) {
           const dayOfMonth = time.getDate();
           const dayOfWeek = "日月火水木金土"[time.getDay()];
 
-          const isTentativeLastEventTimeValid =
-            state.tentativeLastEventTime !== null &&
-            parseTihuTimeString(state.tentativeLastEventTime) !== null &&
-            (sortedEventsRecentFirst.length < 2 ||
-              parseTihuTimeString(state.tentativeLastEventTime)!.getTime() >=
-                sortedEventsRecentFirst[1].time);
-
           return (
             <li className="BarListItem BarListItem--event" key={event.time}>
               <span className="BarListItem__Name">
@@ -322,7 +336,7 @@ function EventList({ stateHook }: StateHookProps) {
                   <input
                     className={
                       "BarListItem--event__TimeInput" +
-                      (!isTentativeLastEventTimeValid
+                      (!isTentativeLastEventTimeValid(state).isValid
                         ? " BarListItem--event__TimeInput--invalid"
                         : "")
                     }
@@ -338,22 +352,32 @@ function EventList({ stateHook }: StateHookProps) {
                   </>
                 )}
               </span>
-              {eventIndex === 0 && (
-                <>
-                  <button
-                    className="BarListItem__Button BarListItem__Button--event"
-                    onClick={startEditingLastEventTime}
-                  >
-                    🕒
-                  </button>
-                  <button
-                    className="BarListItem__Button BarListItem__Button--event"
-                    onClick={removeLastEvent}
-                  >
-                    🗑️
-                  </button>
-                </>
-              )}
+              {eventIndex === 0 &&
+                (state.tentativeLastEventTime === null ? (
+                  <>
+                    <button
+                      className="BarListItem__Button BarListItem__Button--event"
+                      onClick={startEditingLastEventTime}
+                    >
+                      🕒
+                    </button>
+                    <button
+                      className="BarListItem__Button BarListItem__Button--event"
+                      onClick={removeLastEvent}
+                    >
+                      🗑️
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="BarListItem__Button BarListItem__Button--event"
+                      onClick={stopEditingLastEventTime}
+                    >
+                      ✅
+                    </button>
+                  </>
+                ))}
             </li>
           );
         })}
@@ -364,6 +388,26 @@ function EventList({ stateHook }: StateHookProps) {
 
 function EventLine({ stateHook }: StateHookProps) {
   return <div className="PageMenu">TODO</div>;
+}
+
+function isTentativeLastEventTimeValid(state: State): LastEventTimeValidity {
+  if (state.tentativeLastEventTime === null) {
+    return { isValid: false };
+  }
+  const lastTime = parseTihuTimeString(state.tentativeLastEventTime);
+  if (lastTime === null) {
+    return { isValid: false };
+  }
+  const sortedEventsRecentFirst = state.events
+    .slice()
+    .sort((a, b) => b.time - a.time);
+  if (
+    sortedEventsRecentFirst.length < 2 ||
+    lastTime.valueOf() >= sortedEventsRecentFirst[1].time
+  ) {
+    return { isValid: true, validTime: lastTime };
+  }
+  return { isValid: false };
 }
 
 function argMax<T>(array: readonly T[], f: (t: T) => number): T {
@@ -388,7 +432,7 @@ function toShortTimeString(d: Date): string {
   const seconds = d.getSeconds();
   return `${year}/${month}/${day} ${hour.toString().padStart(2, "0")}:${minute
     .toString()
-    .padStart(2, "0")}${seconds.toString().padStart(2, "0")}`;
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 }
 
 function parseTihuTimeString(s: string): null | Date {
