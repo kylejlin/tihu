@@ -294,7 +294,7 @@ function EventList({ stateHook }: StateHookProps) {
     setState((state) => {
       const validity = isTentativeLastEventTimeValid(state);
       if (!validity.isValid) {
-        return state;
+        return { ...state, tentativeLastEventTime: null };
       }
 
       const lastEvent = argMax(state.events, (event) => event.time);
@@ -343,6 +343,8 @@ function EventList({ stateHook }: StateHookProps) {
           const month = time.getMonth() + 1;
           const dayOfMonth = time.getDate();
           const dayOfWeek = "日月火水木金土"[time.getDay()];
+          const tentativeLastEventTimeValidity =
+            isTentativeLastEventTimeValid(state);
 
           return (
             <li className="BarListItem BarListItem--event" key={event.time}>
@@ -352,7 +354,7 @@ function EventList({ stateHook }: StateHookProps) {
                   <input
                     className={
                       "BarListItem--event__TimeInput" +
-                      (!isTentativeLastEventTimeValid(state).isValid
+                      (!tentativeLastEventTimeValidity.isValid
                         ? " BarListItem--event__TimeInput--invalid"
                         : "")
                     }
@@ -390,7 +392,7 @@ function EventList({ stateHook }: StateHookProps) {
                       className="BarListItem__Button BarListItem__Button--event"
                       onClick={stopEditingLastEventTime}
                     >
-                      ✅
+                      {tentativeLastEventTimeValidity.isValid ? "✅" : "❌"}
                     </button>
                   </>
                 ) : (
