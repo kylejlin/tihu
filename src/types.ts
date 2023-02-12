@@ -16,6 +16,7 @@ export interface State {
 
   readonly stamps: readonly string[];
   readonly stampsMenuKind: StampsMenuKind;
+  readonly stampAboutToBeDeleted: null | string;
 
   readonly events: readonly TihuEvent[];
   readonly eventsMenuKind: EventsMenuKind;

@@ -25,14 +25,17 @@ export function HomeMenu({ stateHook }: StateHookProps) {
             ? [
                 <StampableStamp
                   stateHook={stateHook}
-                  name={sortedEventsRecentFirst[0].name.replace(/▶️/g, "⏹️")}
+                  stampName={sortedEventsRecentFirst[0].name.replace(
+                    /▶️/g,
+                    "⏹️"
+                  )}
                   key={sortedEventsRecentFirst[0].name.replace(/▶️/g, "⏹️")}
                 />,
               ]
             : state.stamps.map((stamp) => (
                 <StampableStamp
                   stateHook={stateHook}
-                  name={"▶️ " + stamp}
+                  stampName={"▶️ " + stamp}
                   key={stamp}
                 />
               ))}

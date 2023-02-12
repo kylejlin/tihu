@@ -15,6 +15,7 @@ export function getDefaultState({ dateDotNow }: { dateDotNow: number }): State {
 
     stamps: ["🛏️", "🏋️", "🦷", "🍛", "📝", "🎏", "🏖️"],
     stampsMenuKind: StampsMenuKind.List,
+    stampAboutToBeDeleted: null,
 
     events: [],
     eventsMenuKind: EventsMenuKind.List,

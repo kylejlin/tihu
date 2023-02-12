@@ -13,8 +13,9 @@ export function StampBarList({ stateHook }: StateHookProps) {
           <Stamp
             key={stamp}
             stateHook={stateHook}
-            name={stamp}
+            stampName={stamp}
             stampable={false}
+            deletable={true}
           />
         ))}
       </ul>
