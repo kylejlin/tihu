@@ -16,6 +16,7 @@ export function getDefaultState({ dateDotNow }: { dateDotNow: number }): State {
     stamps: ["🛏️", "🏋️", "🦷", "🍛", "📝", "🎏", "🏖️"],
     stampsMenuKind: StampsMenuKind.List,
     stampAboutToBeDeleted: null,
+    tentativeNewStamp: "",
 
     events: [],
     eventsMenuKind: EventsMenuKind.List,
@@ -50,4 +51,9 @@ export function isTentativeLastEventTimeValid(
     return { isValid: true, validTime: lastTime };
   }
   return { isValid: false };
+}
+
+export function isTentativeNewStampValid(state: State): boolean {
+  const stripped = state.tentativeNewStamp.replace(/\s/g, "");
+  return stripped.length > 0 && !state.stamps.includes(stripped);
 }

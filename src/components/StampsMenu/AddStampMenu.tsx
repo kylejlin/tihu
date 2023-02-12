@@ -1,11 +1,33 @@
 import React from "react";
 import "../../App.css";
-import { StateHookProps } from "../../types";
+import { isTentativeNewStampValid } from "../../stateUtils";
+import { StampsMenuKind, StateHookProps } from "../../types";
 import { Stamp } from "../Stamp";
 
 export function AddStampMenu({ stateHook }: StateHookProps) {
-  const [state] = stateHook;
-  const todoIsValid = true;
+  const [state, setState] = stateHook;
+  const tentativeNewStampValid = isTentativeNewStampValid(state);
+
+  function editTentativeNewStamp(e: React.ChangeEvent<HTMLInputElement>) {
+    setState((state) => ({ ...state, tentativeNewStamp: e.target.value }));
+  }
+
+  function addTentativeNewStamp() {
+    setState((state) => ({
+      ...state,
+      stamps: state.stamps.concat([state.tentativeNewStamp]),
+      tentativeNewStamp: "",
+    }));
+  }
+
+  function clearTentativeStampAndNavigateToStampList() {
+    setState((state) => ({
+      ...state,
+      stampsMenuKind: StampsMenuKind.List,
+      tentativeNewStamp: "",
+    }));
+  }
+
   return (
     <div className="PageMenu--events__EventList">
       <ul className="BarList BarList--containerFilling">
@@ -13,15 +35,29 @@ export function AddStampMenu({ stateHook }: StateHookProps) {
           <input
             className={
               "BarListItem--event__TimeInput" +
-              (!todoIsValid ? " BarListItem--event__TimeInput--invalid" : "")
+              (!tentativeNewStampValid
+                ? " BarListItem--event__TimeInput--invalid"
+                : "")
             }
-            value={"todostampname"}
-            readOnly
+            value={state.tentativeNewStamp}
+            onChange={editTentativeNewStamp}
           />
 
-          <button className="BarListItem__Button BarListItem__Button--stamp">
-            {todoIsValid ? "✅" : "❌"}
-          </button>
+          {tentativeNewStampValid ? (
+            <button
+              className="BarListItem__Button BarListItem__Button--stamp"
+              onClick={addTentativeNewStamp}
+            >
+              ✅
+            </button>
+          ) : (
+            <button
+              className="BarListItem__Button BarListItem__Button--stamp"
+              onClick={clearTentativeStampAndNavigateToStampList}
+            >
+              ❌
+            </button>
+          )}
         </li>
 
         {state.stamps.map((stamp) => (
