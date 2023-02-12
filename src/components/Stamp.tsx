@@ -48,6 +48,7 @@ export function Stamp({
     setState((state) => ({
       ...state,
       stamps: state.stamps.filter((s) => s !== stamp),
+      stampAboutToBeDeleted: null,
     }));
   }
 
