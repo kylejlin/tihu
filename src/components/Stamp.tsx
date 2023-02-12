@@ -33,7 +33,7 @@ export function Stamp({
           className="BarListItem__Button BarListItem__Button--stamp"
           onClick={addEventNow}
         >
-          ⬇️
+          +
         </button>
       )}
     </li>

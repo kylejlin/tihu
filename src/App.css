@@ -93,8 +93,9 @@
 }
 
 .BarListItem__Button--stamp {
-  border: 1px solid #444;
-  background-color: #222;
+  border: 1px solid #eee;
+  background-color: #284;
+  color: #eee;
 }
 
 .BarListItem__Button--event {
