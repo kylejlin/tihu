@@ -17,7 +17,7 @@ export function EventBar({
 }: StateHookProps & {
   event: TihuEvent;
   recencyIndex: number;
-  durationMillis?: number;
+  durationMillis: null | number | "ACTIVE";
 }) {
   const [state, setState] = stateHook;
 
@@ -117,13 +117,13 @@ export function EventBar({
             {month}/{dayOfMonth} {dayOfWeek}{" "}
             {time.getHours().toString().padStart(2, "0")}:
             {time.getMinutes().toString().padStart(2, "0")}{" "}
-            {durationMillis === undefined ? (
+            {durationMillis === "ACTIVE" ? (
               <span className="Duration Duration--active">
                 {toTihuHourMinuteSecondString(
                   Math.max(0, state.dateDotNow - event.time)
                 )}
               </span>
-            ) : (
+            ) : durationMillis === null ? null : (
               <span className="Duration Duration--final">
                 {toTihuHourMinuteString(durationMillis)}
               </span>

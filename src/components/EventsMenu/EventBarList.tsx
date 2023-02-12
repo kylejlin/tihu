@@ -8,20 +8,22 @@ export function EventBarList({ stateHook }: StateHookProps) {
   const sortedEventsRecentFirst = state.events
     .slice()
     .sort((a, b) => b.time - a.time);
-  const durations: readonly (null | number)[] =
+  const durations: readonly (null | number | "ACTIVE")[] =
     sortedEventsRecentFirst.length % 2 === 0
       ? sortedEventsRecentFirst.map((event, eventIndex) => {
           if (eventIndex % 2 === 0) {
             return event.time - sortedEventsRecentFirst[eventIndex + 1].time;
           }
-          return sortedEventsRecentFirst[eventIndex - 1].time - event.time;
+          // return sortedEventsRecentFirst[eventIndex - 1].time - event.time;
+          return null;
         })
       : sortedEventsRecentFirst.map((event, eventIndex) => {
           if (eventIndex === 0) {
-            return null;
+            return "ACTIVE";
           }
           if (eventIndex % 2 === 0) {
-            return sortedEventsRecentFirst[eventIndex - 1].time - event.time;
+            // return sortedEventsRecentFirst[eventIndex - 1].time - event.time;
+            return null;
           }
           return event.time - sortedEventsRecentFirst[eventIndex + 1].time;
         });
@@ -35,7 +37,7 @@ export function EventBarList({ stateHook }: StateHookProps) {
             stateHook={stateHook}
             event={event}
             recencyIndex={eventIndex}
-            durationMillis={durations[eventIndex] ?? undefined}
+            durationMillis={durations[eventIndex]}
           />
         ))}
       </ul>

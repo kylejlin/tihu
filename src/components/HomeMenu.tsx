@@ -16,7 +16,7 @@ export function HomeMenu({ stateHook }: StateHookProps) {
     sortedEventsRecentFirst.length >= 2 &&
     sortedEventsRecentFirst.length % 2 === 0
       ? sortedEventsRecentFirst[0].time - sortedEventsRecentFirst[1].time
-      : null;
+      : "ACTIVE";
   return (
     <div className="PageMenu PageMenu--home">
       <div className="PageMenu--home__Stamps">
@@ -44,7 +44,7 @@ export function HomeMenu({ stateHook }: StateHookProps) {
             stateHook={stateHook}
             event={sortedEventsRecentFirst[0]}
             recencyIndex={0}
-            durationMillis={previousEventDurationMillis ?? undefined}
+            durationMillis={previousEventDurationMillis}
           />
         )}
       </div>
