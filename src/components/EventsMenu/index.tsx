@@ -17,7 +17,7 @@ export function EventsMenu({ stateHook }: StateHookProps) {
   })();
 
   return (
-    <div className="PageMenu PageMenu--events PageMenu--events--eventList">
+    <div className="PageMenu PageMenu--events">
       {activeMenu}
 
       <EventsMenuNavBar stateHook={stateHook} />

@@ -4,6 +4,7 @@ import {
   MenuKind,
   EventsMenuKind,
   LastEventTimeValidity,
+  StampsMenuKind,
 } from "./types";
 
 export function getDefaultState({ dateDotNow }: { dateDotNow: number }): State {
@@ -13,6 +14,7 @@ export function getDefaultState({ dateDotNow }: { dateDotNow: number }): State {
     menuKind: MenuKind.Home,
 
     stamps: ["🛏️", "🏋️", "🦷", "🍛", "📝", "🎏", "🏖️"],
+    stampsMenuKind: StampsMenuKind.List,
 
     events: [],
     eventsMenuKind: EventsMenuKind.List,

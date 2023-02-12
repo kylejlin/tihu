@@ -15,6 +15,7 @@ export interface State {
   readonly menuKind: MenuKind;
 
   readonly stamps: readonly string[];
+  readonly stampsMenuKind: StampsMenuKind;
 
   readonly events: readonly TihuEvent[];
   readonly eventsMenuKind: EventsMenuKind;
@@ -36,6 +37,11 @@ export type StateHook = readonly [
 
 export interface StateHookProps {
   readonly stateHook: StateHook;
+}
+
+export enum StampsMenuKind {
+  List,
+  Add,
 }
 
 /** We call it `TihuEvent` to avoid a name clash with the native `Event`. */
