@@ -171,6 +171,7 @@
 }
 
 .BarListItem--event__TimeInput {
+  margin-left: 1em;
   color: black;
 }
 
