@@ -68,7 +68,7 @@ export function AddStampMenu({ stateHook }: StateHookProps) {
             stateHook={stateHook}
             stampName={stamp}
             stampable={false}
-            deletable={false}
+            deletable={true}
           />
         ))}
       </ul>
