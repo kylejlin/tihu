@@ -78,6 +78,15 @@
   border-color: #444;
 }
 
+.BarListItem--stamp--tentativeStamp {
+  background-color: #111;
+  color: #eee;
+}
+
+.BarListItem__Label {
+  margin-left: 1em;
+}
+
 .BarListItem--event {
   background-color: #eee;
   color: #222;
@@ -173,6 +182,7 @@
 .BarListItem--event__TimeInput {
   margin-left: 1em;
   color: black;
+  outline: none;
 }
 
 .BarListItem--event__TimeInput--invalid {

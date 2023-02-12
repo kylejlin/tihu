@@ -31,7 +31,9 @@ export function AddStampMenu({ stateHook }: StateHookProps) {
   return (
     <div className="PageMenu--events__EventList">
       <ul className="BarList BarList--containerFilling">
-        <li className="BarListItem BarListItem--stamp">
+        <li className="BarListItem BarListItem--stamp BarListItem--stamp--tentativeStamp">
+          <span className="BarListItem__Label">Add</span>
+
           <input
             className={
               "BarListItem--event__TimeInput" +
