@@ -1,5 +1,6 @@
 .App {
   --nav-bar-height: 10vh;
+  --bar-list-item-height: 4em;
 }
 
 .NavBar {
@@ -35,15 +36,11 @@
   height: calc(100vh - var(--nav-bar-height));
 }
 
-.PageMenu--home {
-  --stamps-height: 85%;
-}
-
 .PageMenu--home__Stamps {
   position: absolute;
   top: 0;
   left: 0;
-  height: var(--stamps-height);
+  height: calc(100% - var(--bar-list-item-height));
   width: 100%;
 }
 
@@ -62,8 +59,8 @@
 .BarListItem {
   --border-width: 1px;
   width: 100%;
-  height: 4em;
-  line-height: 4em;
+  height: var(--bar-list-item-height);
+  line-height: var(--bar-list-item-height);
   display: inline-block;
   padding: 0;
   margin: 0;
