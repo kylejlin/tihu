@@ -12,35 +12,38 @@ export function EventLine({ stateHook }: StateHookProps) {
 
   return (
     <div className="PageMenu">
-      {dayStatsRecentFirst.map((dayStats) => {
-        const date = new Date(dayStats.dateDotNow);
-        const month = date.getMonth() + 1;
-        const dayOfMonth = date.getDate();
-        const dayOfWeek = "日月火水木金土"[date.getDay()];
+      <ul className="DaysWithStats">
+        {dayStatsRecentFirst.map((dayStats) => {
+          const date = new Date(dayStats.dateDotNow);
+          const month = date.getMonth() + 1;
+          const dayOfMonth = date.getDate();
+          const dayOfWeek = "日月火水木金土"[date.getDay()];
 
-        const stampDistributionLargestFirst = dayStats.stampDistribution
-          .slice()
-          .sort((a, b) => b[1] - a[1]);
+          const stampDistributionLargestFirst = dayStats.stampDistribution
+            .slice()
+            .sort((a, b) => b[1] - a[1]);
 
-        return (
-          <li key={dayStats.dateDotNow}>
-            <h3>
-              {month}/{dayOfMonth} {dayOfWeek}
-            </h3>
+          return (
+            <li key={dayStats.dateDotNow}>
+              <h3>
+                {month}/{dayOfMonth} {dayOfWeek}
+              </h3>
 
-            <ul>
-              {stampDistributionLargestFirst.map(([stamp, proportion]) => (
-                <li key={stamp}>
-                  {stamp} {(proportion * 100).toFixed(1)}%
+              <ul>
+                {stampDistributionLargestFirst.map(([stamp, proportion]) => (
+                  <li key={stamp}>
+                    {stamp} {(proportion * 100).toFixed(1)}%
+                  </li>
+                ))}
+                <li>
+                  {UNKNOWN_STAMP}{" "}
+                  {(dayStats.unknownProportion * 100).toFixed(1)}%
                 </li>
-              ))}
-              <li>
-                {UNKNOWN_STAMP} {(dayStats.unknownProportion * 100).toFixed(1)}%
-              </li>
-            </ul>
-          </li>
-        );
-      })}
+              </ul>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

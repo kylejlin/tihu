@@ -203,3 +203,7 @@
 .Duration--active {
   background-color: #284;
 }
+
+.DaysWithStats {
+  list-style: none;
+}
