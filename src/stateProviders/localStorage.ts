@@ -1,3 +1,4 @@
+import { CURRENT_STATE_VERSION } from "../stateUtils";
 import { StateProvider, State } from "../types";
 
 const LocalStorageKeys = {
@@ -9,7 +10,15 @@ export function getSavedState(): null | State {
   if (savedState === null) {
     return null;
   }
-  return JSON.parse(savedState);
+  try {
+    const state: State = JSON.parse(savedState);
+    if (state.stateVersion === CURRENT_STATE_VERSION) {
+      return state;
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 export function saveState(state: State): void {

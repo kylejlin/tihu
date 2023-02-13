@@ -6,8 +6,12 @@ import {
   LastEventTimeValidity,
 } from "./types";
 
+export const CURRENT_STATE_VERSION = 1;
+
 export function getDefaultState({ dateDotNow }: { dateDotNow: number }): State {
   return {
+    stateVersion: CURRENT_STATE_VERSION,
+
     dateDotNow,
 
     menuKind: MenuKind.Home,

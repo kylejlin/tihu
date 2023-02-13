@@ -10,6 +10,8 @@ export interface StateProvider {
 }
 
 export interface State {
+  readonly stateVersion: number;
+
   readonly dateDotNow: number;
 
   readonly menuKind: MenuKind;
