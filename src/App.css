@@ -1,6 +1,7 @@
 .App {
   --nav-bar-height: 10vh;
   --bar-list-item-height: 4em;
+  --bar-list-item-border-width: 1px;
 }
 
 .NavBar {
@@ -40,7 +41,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: calc(100% - var(--bar-list-item-height));
+  height: calc(
+    100% - var(--bar-list-item-height) - var(--bar-list-item-border-width)
+  );
   width: 100%;
 }
 
@@ -57,7 +60,6 @@
 }
 
 .BarListItem {
-  --border-width: 1px;
   width: 100%;
   height: var(--bar-list-item-height);
   line-height: var(--bar-list-item-height);
@@ -66,7 +68,7 @@
   margin: 0;
   user-select: none;
   list-style: none;
-  border-top: var(--border-width) solid;
+  border-top: var(--bar-list-item-border-width) solid;
 }
 
 .BarListItem--stamp {
@@ -82,6 +84,7 @@
 
 .BarListItem__Label {
   margin-left: 1em;
+  color: #222;
 }
 
 .BarListItem--event {
@@ -120,6 +123,7 @@
   left: 0;
   background-color: #eee;
   color: #222;
+  border-color: #ccc;
 }
 
 .PageMenu--events {
