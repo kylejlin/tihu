@@ -1,8 +1,8 @@
 import React from "react";
-import { StateHookProps } from "../../types";
-import "../../App.css";
-import { StampBar } from "../StampBar";
-import { isTentativeNewStampValid } from "../../stateUtils";
+import { StateHookProps } from "../types";
+import "../App.css";
+import { StampBar } from "./StampBar";
+import { isTentativeNewStampValid } from "../stateUtils";
 
 export function StampsMenu({ stateHook }: StateHookProps) {
   const [state, setState] = stateHook;
