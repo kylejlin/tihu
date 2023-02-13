@@ -2,7 +2,7 @@ import React from "react";
 import { StateHookProps } from "../types";
 import "../App.css";
 
-export function Stamp({
+export function StampBar({
   stateHook,
   stampName,
   stampable,
@@ -92,5 +92,5 @@ export function Stamp({
 }
 
 export function StampableStamp(props: StateHookProps & { stampName: string }) {
-  return <Stamp {...props} stampable={true} deletable={false} />;
+  return <StampBar {...props} stampable={true} deletable={false} />;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { StateHookProps } from "../types";
 import "../App.css";
-import { StampableStamp } from "./Stamp";
+import { StampableStamp } from "./StampBar";
 import { EventBar } from "./EventsMenu/EventBar";
 
 export function HomeMenu({ stateHook }: StateHookProps) {

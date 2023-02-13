@@ -1,7 +1,7 @@
 import React from "react";
 import { StateHookProps } from "../../types";
 import "../../App.css";
-import { Stamp } from "../Stamp";
+import { StampBar } from "../StampBar";
 
 export function StampBarList({ stateHook }: StateHookProps) {
   const [state] = stateHook;
@@ -10,7 +10,7 @@ export function StampBarList({ stateHook }: StateHookProps) {
     <div className="PageMenu--events__EventList">
       <ul className="BarList BarList--containerFilling">
         {state.stamps.map((stamp) => (
-          <Stamp
+          <StampBar
             key={stamp}
             stateHook={stateHook}
             stampName={stamp}

@@ -2,7 +2,7 @@ import React from "react";
 import "../../App.css";
 import { isTentativeNewStampValid } from "../../stateUtils";
 import { StampsMenuKind, StateHookProps } from "../../types";
-import { Stamp } from "../Stamp";
+import { StampBar } from "../StampBar";
 
 export function AddStampMenu({ stateHook }: StateHookProps) {
   const [state, setState] = stateHook;
@@ -63,7 +63,7 @@ export function AddStampMenu({ stateHook }: StateHookProps) {
         </li>
 
         {state.stamps.map((stamp) => (
-          <Stamp
+          <StampBar
             key={stamp}
             stateHook={stateHook}
             stampName={stamp}
