@@ -70,3 +70,14 @@ export interface ValidLastEventTime {
 export interface InvalidLastEventTime {
   readonly isValid: false;
 }
+
+export interface DayStats {
+  readonly dateDotNow: number;
+  readonly stampDistribution: readonly [string, number][];
+  readonly unknownProportion: number;
+}
+
+export interface TihuEventPair {
+  readonly start: TihuEvent;
+  readonly end: TihuEvent;
+}

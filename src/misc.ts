@@ -1,5 +1,9 @@
 import { TihuEventKind } from "./types";
 
+export const MILLIS_IN_DAY = 1000 * 60 * 60 * 24;
+
+export const UNKNOWN_STAMP = "❓";
+
 export function toTihuDateTimeString(d: Date): string {
   const year = d.getFullYear();
   const month = d.getMonth() + 1;
@@ -68,4 +72,36 @@ export function getEventKindString(kind: TihuEventKind): string {
     case TihuEventKind.End:
       return "⏹️";
   }
+}
+
+export function dayFloor(d: Date): Date {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
+export function intoPairs<T>(
+  arr: readonly T[]
+): null | readonly (readonly [T, T])[] {
+  if (arr.length % 2 !== 0) {
+    return null;
+  }
+
+  const result: (readonly [T, T])[] = [];
+  for (let i = 0; i < arr.length; i += 2) {
+    result.push([arr[i], arr[i + 1]]);
+  }
+  return result;
+}
+
+export function getOrCreate<K, V>(
+  map: Map<K, V>,
+  key: K,
+  getNewVal: () => V
+): V {
+  if (map.has(key)) {
+    return map.get(key)!;
+  }
+
+  const val = getNewVal();
+  map.set(key, val);
+  return val;
 }
