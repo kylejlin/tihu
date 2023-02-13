@@ -6,9 +6,6 @@ import { isTentativeNewStampValid } from "../../stateUtils";
 
 export function StampsMenu({ stateHook }: StateHookProps) {
   const [state, setState] = stateHook;
-  const sortedEventsRecentFirst = state.events
-    .slice()
-    .sort((a, b) => b.time - a.time);
   const tentativeNewStampValid = isTentativeNewStampValid(state);
 
   function editTentativeNewStamp(e: React.ChangeEvent<HTMLInputElement>) {
@@ -46,7 +43,7 @@ export function StampsMenu({ stateHook }: StateHookProps) {
         </ul>
       </div>
       <div className="PageMenu--home__PreviousEvent">
-        {sortedEventsRecentFirst.length > 0 && (
+        {
           <li className="BarListItem BarListItem--stamp BarListItem--stamp--tentativeStamp">
             <span className="BarListItem__Label">Add</span>
 
@@ -77,7 +74,7 @@ export function StampsMenu({ stateHook }: StateHookProps) {
               </button>
             )}
           </li>
-        )}
+        }
       </div>
     </div>
   );
