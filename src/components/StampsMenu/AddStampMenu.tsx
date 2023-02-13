@@ -66,8 +66,8 @@ export function AddStampMenu({ stateHook }: StateHookProps) {
           <StampBar
             key={stamp}
             stateHook={stateHook}
-            stampName={stamp}
-            stampable={false}
+            stamp={stamp}
+            eventKind={null}
             deletable={true}
           />
         ))}

@@ -48,9 +48,15 @@ export enum StampsMenuKind {
 
 /** We call it `TihuEvent` to avoid a name clash with the native `Event`. */
 export interface TihuEvent {
-  readonly name: string;
+  readonly eventKind: TihuEventKind;
+  readonly stamp: string;
   /** Number of milliseconds since the JS Date epoch. */
   readonly time: number;
+}
+
+export enum TihuEventKind {
+  Start,
+  End,
 }
 
 export enum EventsMenuKind {

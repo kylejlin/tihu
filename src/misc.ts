@@ -1,3 +1,5 @@
+import { TihuEventKind } from "./types";
+
 export function toTihuDateTimeString(d: Date): string {
   const year = d.getFullYear();
   const month = d.getMonth() + 1;
@@ -57,4 +59,13 @@ export function toTihuHourMinuteSecondString(durationMillis: number): string {
   return `${hours}:${minutes.toString().padStart(2, "0")}+${seconds
     .toString()
     .padStart(2, "0")}`;
+}
+
+export function getEventKindString(kind: TihuEventKind): string {
+  switch (kind) {
+    case TihuEventKind.Start:
+      return "▶️";
+    case TihuEventKind.End:
+      return "⏹️";
+  }
 }

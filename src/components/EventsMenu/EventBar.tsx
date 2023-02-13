@@ -2,6 +2,7 @@ import React from "react";
 import "../../App.css";
 import {
   argMax,
+  getEventKindString,
   toTihuDateTimeString,
   toTihuHourMinuteSecondString,
   toTihuHourMinuteString,
@@ -99,7 +100,7 @@ export function EventBar({
   return (
     <li className="BarListItem BarListItem--event" key={event.time}>
       <span className="BarListItem__Name">
-        {event.name}
+        {event.stamp} {getEventKindString(event.eventKind)}
         {recencyIndex === 0 && state.tentativeLastEventTime !== null ? (
           <input
             className={

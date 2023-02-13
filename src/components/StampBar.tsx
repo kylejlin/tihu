@@ -1,26 +1,28 @@
 import React from "react";
-import { StateHookProps } from "../types";
+import { StateHookProps, TihuEventKind } from "../types";
 import "../App.css";
+import { getEventKindString } from "../misc";
 
 export function StampBar({
   stateHook,
-  stampName,
-  stampable,
+  stamp,
+  eventKind,
   deletable,
 }: StateHookProps & {
-  stampName: string;
-  stampable: boolean;
+  stamp: string;
+  eventKind: null | TihuEventKind;
   deletable: boolean;
 }) {
   const [state, setState] = stateHook;
 
-  function addEventNow() {
+  function addEventNow(eventKind: TihuEventKind) {
     setState((state) => ({
       ...state,
       events: [
         ...state.events,
         {
-          name: stampName,
+          eventKind,
+          stamp: stamp,
           time: Date.now(),
         },
       ],
@@ -54,21 +56,21 @@ export function StampBar({
 
   return (
     <li className="BarListItem BarListItem--stamp">
-      <span className="BarListItem__Name">{stampName}</span>
-      {stampable && (
+      <span className="BarListItem__Name">{stamp}</span>
+      {eventKind !== null && (
         <button
           className="BarListItem__Button BarListItem__Button--stamp"
-          onClick={addEventNow}
+          onClick={() => addEventNow(eventKind)}
         >
-          {String.fromCodePoint(stampName.codePointAt(0)!)}
+          {getEventKindString(eventKind)}
         </button>
       )}
 
-      {state.stampAboutToBeDeleted === stampName ? (
+      {state.stampAboutToBeDeleted === stamp ? (
         <>
           <button
             className="BarListItem__Button BarListItem__Button--stamp BarListItem__Button--event--finalDelete"
-            onClick={() => removeStamp(stampName)}
+            onClick={() => removeStamp(stamp)}
           >
             🗑️
           </button>
@@ -82,15 +84,11 @@ export function StampBar({
       ) : deletable ? (
         <button
           className="BarListItem__Button BarListItem__Button--stamp"
-          onClick={() => askForStampDeletionConfirmation(stampName)}
+          onClick={() => askForStampDeletionConfirmation(stamp)}
         >
           🗑️
         </button>
       ) : null}
     </li>
   );
-}
-
-export function StampableStamp(props: StateHookProps & { stampName: string }) {
-  return <StampBar {...props} stampable={true} deletable={false} />;
 }

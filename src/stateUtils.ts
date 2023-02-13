@@ -53,7 +53,16 @@ export function isTentativeLastEventTimeValid(
   return { isValid: false };
 }
 
+/**
+ * The new stamp must...
+ * 1. ...not contain any whitespace
+ * 2. ...not be empty
+ * 3. ...not already exist
+ */
 export function isTentativeNewStampValid(state: State): boolean {
-  const stripped = state.tentativeNewStamp.replace(/\s/g, "");
-  return stripped.length > 0 && !state.stamps.includes(stripped);
+  return (
+    !/\s/.test(state.tentativeNewStamp) &&
+    state.tentativeNewStamp.length > 0 &&
+    !state.stamps.includes(state.tentativeNewStamp)
+  );
 }

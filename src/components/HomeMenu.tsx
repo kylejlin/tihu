@@ -1,7 +1,7 @@
 import React from "react";
-import { StateHookProps } from "../types";
+import { StateHookProps, TihuEventKind } from "../types";
 import "../App.css";
-import { StampableStamp } from "./StampBar";
+import { StampBar } from "./StampBar";
 import { EventBar } from "./EventsMenu/EventBar";
 
 export function HomeMenu({ stateHook }: StateHookProps) {
@@ -11,7 +11,7 @@ export function HomeMenu({ stateHook }: StateHookProps) {
     .sort((a, b) => b.time - a.time);
   const isLastEventInProgress =
     sortedEventsRecentFirst.length > 0 &&
-    sortedEventsRecentFirst[0].name.startsWith("▶️");
+    sortedEventsRecentFirst[0].eventKind === TihuEventKind.Start;
   const previousEventDurationMillis =
     sortedEventsRecentFirst.length >= 2 &&
     sortedEventsRecentFirst.length % 2 === 0
@@ -21,24 +21,24 @@ export function HomeMenu({ stateHook }: StateHookProps) {
     <div className="PageMenu PageMenu--home">
       <div className="PageMenu--home__Stamps">
         <ul className="BarList BarList--containerFilling">
-          {isLastEventInProgress
-            ? [
-                <StampableStamp
-                  stateHook={stateHook}
-                  stampName={sortedEventsRecentFirst[0].name.replace(
-                    /▶️/g,
-                    "⏹️"
-                  )}
-                  key={sortedEventsRecentFirst[0].name.replace(/▶️/g, "⏹️")}
-                />,
-              ]
-            : state.stamps.map((stamp) => (
-                <StampableStamp
-                  stateHook={stateHook}
-                  stampName={"▶️ " + stamp}
-                  key={stamp}
-                />
-              ))}
+          {isLastEventInProgress ? (
+            <StampBar
+              stateHook={stateHook}
+              stamp={sortedEventsRecentFirst[0].stamp}
+              eventKind={TihuEventKind.End}
+              deletable={false}
+            />
+          ) : (
+            state.stamps.map((stamp) => (
+              <StampBar
+                key={stamp}
+                stateHook={stateHook}
+                stamp={stamp}
+                eventKind={TihuEventKind.Start}
+                deletable={false}
+              />
+            ))
+          )}
         </ul>
       </div>
       <div className="PageMenu--home__PreviousEvent">
