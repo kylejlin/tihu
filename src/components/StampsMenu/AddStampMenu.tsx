@@ -1,7 +1,7 @@
 import React from "react";
 import "../../App.css";
 import { isTentativeNewStampValid } from "../../stateUtils";
-import { StampsMenuKind, StateHookProps } from "../../types";
+import { StateHookProps } from "../../types";
 import { StampBar } from "../StampBar";
 
 export function AddStampMenu({ stateHook }: StateHookProps) {
@@ -23,7 +23,6 @@ export function AddStampMenu({ stateHook }: StateHookProps) {
   function clearTentativeStampAndNavigateToStampList() {
     setState((state) => ({
       ...state,
-      stampsMenuKind: StampsMenuKind.List,
       tentativeNewStamp: "",
     }));
   }
