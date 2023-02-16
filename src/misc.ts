@@ -23,15 +23,44 @@ export function parseTihuDateTimeString(s: string): null | Date {
   if (match === null) {
     return null;
   }
-  const year = parseInt(match[1], 10);
-  const month = parseInt(match[2], 10) - 1;
-  const day = parseInt(match[3], 10);
-  const hours = parseInt(match[4], 10);
-  const minutes = parseInt(match[5], 10);
-  const seconds = match[6] === undefined ? 0 : parseInt(match[6], 10);
+
+  const [, yearStr, monthStr, dayStr, hoursStr, minutesStr] = match;
+  const secondsStr: undefined | string = match[6];
+
+  const year = parseInt(yearStr, 10);
+  const month = parseInt(monthStr, 10) - 1;
+  const day = parseInt(dayStr, 10);
+  const hours = parseInt(hoursStr, 10);
+  const minutes = minutesStr.length === 2 ? parseInt(minutesStr, 10) : NaN;
+  const seconds =
+    secondsStr === undefined
+      ? 0
+      : secondsStr.length === 2
+      ? parseInt(secondsStr, 10)
+      : NaN;
+
   if ([year, month, day, hours, minutes, seconds].some(Number.isNaN)) {
     return null;
   }
+
+  if (
+    !(
+      1970 <= year &&
+      0 <= month &&
+      month <= 11 &&
+      1 <= day &&
+      day <= 31 &&
+      0 <= hours &&
+      hours <= 23 &&
+      0 <= minutes &&
+      minutes <= 59 &&
+      0 <= seconds &&
+      seconds <= 59
+    )
+  ) {
+    return null;
+  }
+
   return new Date(year, month, day, hours, minutes, seconds);
 }
 
