@@ -24,12 +24,12 @@ export function EventStatsMenu({ stateHook }: StateHookProps) {
             .sort((a, b) => b[1] - a[1]);
 
           return (
-            <li key={dayStats.dateDotNow}>
+            <li key={dayStats.dateDotNow} className="DayStats">
               <h3>
                 {month}/{dayOfMonth} {dayOfWeek}
               </h3>
 
-              <ul>
+              <ul className="DayStats__TimeDistribution">
                 {stampDistributionLargestFirst.map(([stamp, proportion]) => (
                   <li key={stamp}>
                     {stamp} {(proportion * 100).toFixed(1)}%

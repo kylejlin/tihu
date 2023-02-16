@@ -189,10 +189,19 @@
 
 .DaysWithStats {
   list-style: none;
-  width: 100%;
-  height: 100%;
   position: absolute;
   left: 0;
   top: 0;
   margin: 0;
+  padding: 0;
+  padding-bottom: 2em;
+  min-width: 100%;
+}
+
+.DayStats {
+  margin-left: 1em;
+}
+
+.DayStats__TimeDistribution {
+  display: inline-block;
 }
