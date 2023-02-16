@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tihu/static/css/main.cd4e3101.css",
-    "main.js": "/tihu/static/js/main.782e91c3.js",
+    "main.js": "/tihu/static/js/main.5a8b4ed4.js",
     "static/js/787.f5769e72.chunk.js": "/tihu/static/js/787.f5769e72.chunk.js",
     "index.html": "/tihu/index.html",
     "main.cd4e3101.css.map": "/tihu/static/css/main.cd4e3101.css.map",
-    "main.782e91c3.js.map": "/tihu/static/js/main.782e91c3.js.map",
+    "main.5a8b4ed4.js.map": "/tihu/static/js/main.5a8b4ed4.js.map",
     "787.f5769e72.chunk.js.map": "/tihu/static/js/787.f5769e72.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cd4e3101.css",
-    "static/js/main.782e91c3.js"
+    "static/js/main.5a8b4ed4.js"
   ]
 }
