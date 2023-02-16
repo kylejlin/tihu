@@ -11,7 +11,7 @@ export function EventStatsMenu({ stateHook }: StateHookProps) {
     .sort((a, b) => b.dateDotNow - a.dateDotNow);
 
   return (
-    <div className="PageMenu">
+    <div className="FillContainerExceptLeaveRoomForBarListItemAtBottom">
       <ul className="DaysWithStats">
         {dayStatsRecentFirst.map((dayStats) => {
           const date = new Date(dayStats.dateDotNow);

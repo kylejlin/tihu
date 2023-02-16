@@ -29,8 +29,8 @@ export function StampsMenu({ stateHook }: StateHookProps) {
 
   return (
     <div className="PageMenu PageMenu--home">
-      <div className="PageMenu--home__Stamps">
-        <ul className="BarList BarList--containerFilling">
+      <div className="FillContainerExceptLeaveRoomForBarListItemAtBottom">
+        <ul className="BarList">
           {state.stamps.map((stamp) => (
             <StampBar
               key={stamp}

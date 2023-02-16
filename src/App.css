@@ -37,7 +37,7 @@
   height: calc(100vh - var(--nav-bar-height));
 }
 
-.PageMenu--home__Stamps {
+.FillContainerExceptLeaveRoomForBarListItemAtBottom {
   position: absolute;
   top: 0;
   left: 0;
@@ -45,18 +45,13 @@
     100% - var(--bar-list-item-height) - var(--bar-list-item-border-width)
   );
   width: 100%;
+  overflow: auto;
 }
 
-.BarList--containerFilling {
+.BarList {
   padding: 0;
   margin: 0;
   border: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
 }
 
 .BarListItem {
@@ -130,28 +125,16 @@
   --events-menu-navbar-height: 8vh;
 }
 
-.PageMenu--events__EventList {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: calc(100% - var(--events-menu-navbar-height));
-  width: 100%;
-}
-
 .PageMenu--events__EventsMenuNavBar {
-  --border-width: 1px;
   position: absolute;
   bottom: 0;
   left: 0;
-  --borderless-height: calc(
-    var(--events-menu-navbar-height) - 2 * var(--border-width)
-  );
-  height: var(--borderless-height);
-  line-height: var(--borderless-height);
+  height: var(--bar-list-item-height);
+  line-height: var(--bar-list-item-height);
   width: 100%;
   background-color: #eee;
-  border-top: var(--border-width) solid #ccc;
-  border-bottom: var(--border-width) solid #ccc;
+  border-top: var(--bar-list-item-border-width) solid #ccc;
+  border-bottom: var(--bar-list-item-border-width) solid #ccc;
 }
 
 .PageMenu--events__EventsMenuNavBar__Button {
@@ -206,4 +189,10 @@
 
 .DaysWithStats {
   list-style: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
 }

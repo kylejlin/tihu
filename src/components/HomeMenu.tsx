@@ -19,8 +19,8 @@ export function HomeMenu({ stateHook }: StateHookProps) {
       : "ACTIVE";
   return (
     <div className="PageMenu PageMenu--home">
-      <div className="PageMenu--home__Stamps">
-        <ul className="BarList BarList--containerFilling">
+      <div className="FillContainerExceptLeaveRoomForBarListItemAtBottom">
+        <ul className="BarList">
           {isLastEventInProgress ? (
             <StampBar
               stateHook={stateHook}

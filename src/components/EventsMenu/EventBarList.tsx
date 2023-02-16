@@ -14,7 +14,6 @@ export function EventBarList({ stateHook }: StateHookProps) {
           if (eventIndex % 2 === 0) {
             return event.time - sortedEventsRecentFirst[eventIndex + 1].time;
           }
-          // return sortedEventsRecentFirst[eventIndex - 1].time - event.time;
           return null;
         })
       : sortedEventsRecentFirst.map((event, eventIndex) => {
@@ -22,15 +21,14 @@ export function EventBarList({ stateHook }: StateHookProps) {
             return "ACTIVE";
           }
           if (eventIndex % 2 === 0) {
-            // return sortedEventsRecentFirst[eventIndex - 1].time - event.time;
             return null;
           }
           return event.time - sortedEventsRecentFirst[eventIndex + 1].time;
         });
 
   return (
-    <div className="PageMenu--events__EventList">
-      <ul className="BarList BarList--containerFilling">
+    <div className="FillContainerExceptLeaveRoomForBarListItemAtBottom">
+      <ul className="BarList">
         {sortedEventsRecentFirst.map((event, eventIndex) => (
           <EventBar
             key={event.time}
