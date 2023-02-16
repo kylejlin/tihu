@@ -12,10 +12,10 @@ export function EventsMenuNavBar({ stateHook }: StateHookProps) {
     }));
   }
 
-  function navigateToEventLine() {
+  function navigateToEventStatsMenu() {
     setState((state) => ({
       ...state,
-      eventsMenuKind: EventsMenuKind.Line,
+      eventsMenuKind: EventsMenuKind.Stats,
     }));
   }
 
@@ -34,12 +34,12 @@ export function EventsMenuNavBar({ stateHook }: StateHookProps) {
       </button>
       <button
         className={
-          "PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--line" +
-          (state.eventsMenuKind === EventsMenuKind.Line
+          "PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--stats" +
+          (state.eventsMenuKind === EventsMenuKind.Stats
             ? " PageMenu--events__EventsMenuNavBar__Button--active"
             : "")
         }
-        onClick={navigateToEventLine}
+        onClick={navigateToEventStatsMenu}
       >
         📈
       </button>

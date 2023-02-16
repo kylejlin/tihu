@@ -4,7 +4,7 @@ import { UNKNOWN_STAMP } from "../../misc";
 import { getAllDayStats } from "../../stateUtils";
 import { StateHookProps } from "../../types";
 
-export function EventLine({ stateHook }: StateHookProps) {
+export function EventStatsMenu({ stateHook }: StateHookProps) {
   const [state] = stateHook;
   const dayStatsRecentFirst = getAllDayStats(state)
     .slice()

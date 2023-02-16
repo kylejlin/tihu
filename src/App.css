@@ -176,7 +176,7 @@
   left: 0;
 }
 
-.PageMenu--events__EventsMenuNavBar__Button--line {
+.PageMenu--events__EventsMenuNavBar__Button--stats {
   left: calc(1 * var(--width));
 }
 
