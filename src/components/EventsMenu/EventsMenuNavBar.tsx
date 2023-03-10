@@ -19,6 +19,13 @@ export function EventsMenuNavBar({ stateHook }: StateHookProps) {
     }));
   }
 
+  function navigateToEventExportMenu() {
+    setState((state) => ({
+      ...state,
+      eventsMenuKind: EventsMenuKind.Export,
+    }));
+  }
+
   return (
     <div className="PageMenu--events__EventsMenuNavBar">
       <button
@@ -42,6 +49,17 @@ export function EventsMenuNavBar({ stateHook }: StateHookProps) {
         onClick={navigateToEventStatsMenu}
       >
         📈
+      </button>
+      <button
+        className={
+          "PageMenu--events__EventsMenuNavBar__Button PageMenu--events__EventsMenuNavBar__Button--export" +
+          (state.eventsMenuKind === EventsMenuKind.Export
+            ? " PageMenu--events__EventsMenuNavBar__Button--active"
+            : "")
+        }
+        onClick={navigateToEventExportMenu}
+      >
+        📦
       </button>
     </div>
   );

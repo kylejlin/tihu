@@ -58,6 +58,7 @@ export enum TihuEventKind {
 export enum EventsMenuKind {
   List,
   Stats,
+  Export,
 }
 
 export type LastEventTimeValidity = ValidLastEventTime | InvalidLastEventTime;
