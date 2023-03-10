@@ -209,3 +209,18 @@
 .DayStats__TimeDistribution {
   display: inline-block;
 }
+
+.ImportExportButtons {
+  width: 100%;
+  text-align: center;
+}
+
+.ImportExportButton {
+  margin: 1em;
+  padding: 0.5em;
+  width: calc(100% - 2em);
+  border: 1px solid #444;
+  border-radius: 1em;
+  background-color: #222;
+  color: #eee;
+}

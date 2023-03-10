@@ -58,8 +58,18 @@ export function EventExportMenu({ stateHook }: StateHookProps) {
 
   return (
     <div className="FillContainerExceptLeaveRoomForBarListItemAtBottom">
-      <button onClick={exportState}>Export</button>
-      <button onClick={importEvents}>Import</button>
+      <div className="ImportExportButtons">
+        <div>
+          <button className="ImportExportButton" onClick={exportState}>
+            Export
+          </button>
+        </div>
+        <div>
+          <button className="ImportExportButton" onClick={importEvents}>
+            Import
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
